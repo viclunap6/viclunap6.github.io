@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Evaluación de Jueces</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --star-rating: #FFD700;
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .profile-info h2 {
+            color: var(--deep-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .meta-item i {
+            margin-right: 0.5rem;
+            color: var(--primary-teal);
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--deep-teal);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.8rem;
+            color: var(--primary-teal);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: var(--body-size);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .rating-stars {
+            display: flex;
+            margin-right: 1rem;
+        }
+
+        .rating-stars i {
+            color: var(--star-rating);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 0.3rem;
+        }
+
+        .rating-stars i:hover {
+            transform: scale(1.2);
+        }
+
+        .rating-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--deep-teal);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            background: var(--primary-teal);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.4);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-dark);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab.active {
+            opacity: 1;
+            color: var(--primary-teal);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-teal);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .privacy-notice {
+            background: rgba(42, 157, 143, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .privacy-notice i {
+            color: var(--primary-teal);
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .profile-meta {
+                justify-content: center;
+            }
+            
+            .tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Perfil del Abogado -->
+        <div class="glass-card">
+            <div class="profile-header">
+                <div class="profile-avatar">JD</div>
+                <div class="profile-info">
+                    <h2>Dr. Juan Delgado</h2>
+                    <div class="profile-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-id-card"></i>
+                            <span>Cédula: 87654321</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>juan.delgado@ejemplo.com</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+52 55 1234 5678</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-title">
+                <i class="fas fa-user-cog"></i>
+                Preferencias de Evaluación
+            </h3>
+            
+            <div class="form-group">
+                <label for="specialty">Área de especialidad</label>
+                <select id="specialty" class="form-control">
+                    <option>Derecho Penal</option>
+                    <option selected>Derecho Civil</option>
+                    <option>Derecho Mercantil</option>
+                    <option>Derecho Laboral</option>
+                    <option>Derecho Constitucional</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="notificationPref">Preferencias de notificación</label>
+                <select id="notificationPref" class="form-control">
+                    <option>Notificaciones por correo</option>
+                    <option selected>Notificaciones por SMS</option>
+                    <option>No recibir notificaciones</option>
+                </select>
+            </div>
+            
+            <div class="privacy-notice">
+                <i class="fas fa-user-shield"></i>
+                Todas tus evaluaciones se publicarán de manera anónima para proteger tu privacidad profesional.
+            </div>
+        </div>
+        
+        <!-- Sistema de Evaluación -->
+        <div class="glass-card">
+            <div class="tabs">
+                <div class="tab active" data-tab="rating">Calificación</div>
+                <div class="tab" data-tab="comment">Comentario</div>
+            </div>
+            
+            <!-- Formulario de Calificación -->
+            <div class="tab-content active" id="rating">
+                <h3 class="section-title">
+                    <i class="fas fa-star-half-alt"></i>
+                    Evaluación Cuantitativa
+                </h3>
+                
+                <div class="form-group">
+                    <label for="judgeName">Nombre completo del Juez</label>
+                    <input type="text" id="judgeName" class="form-control" placeholder="Ej. María González Pérez" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="judgeCourt">Tribunal o Entidad Jurisdiccional</label>
+                    <input type="text" id="judgeCourt" class="form-control" placeholder="Ej. Primer Tribunal Colegiado en Materia Civil del Primer Circuito" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Calificación (0 - 10)</label>
+                    <div class="rating-container">
+                        <div class="rating-stars" id="ratingStars">
+                            <i class="far fa-star" data-value="1"></i>
+                            <i class="far fa-star" data-value="2"></i>
+                            <i class="far fa-star" data-value="3"></i>
+                            <i class="far fa-star" data-value="4"></i>
+                            <i class="far fa-star" data-value="5"></i>
+                            <i class="far fa-star" data-value="6"></i>
+                            <i class="far fa-star" data-value="7"></i>
+                            <i class="far fa-star" data-value="8"></i>
+                            <i class="far fa-star" data-value="9"></i>
+                            <i class="far fa-star" data-value="10"></i>
+                        </div>
+                        <div class="rating-value" id="ratingValue">0</div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar Calificación
+                </button>
+            </div>
+            
+            <!-- Formulario de Comentario -->
+            <div class="tab-content" id="comment">
+                <h3 class="section-title">
+                    <i class="fas fa-comment-dots"></i>
+                    Evaluación Cualitativa
+                </h3>
+                
+                <div class="form-group">
+                    <label for="commentJudgeName">Nombre completo del Juez</label>
+                    <input type="text" id="commentJudgeName" class="form-control" placeholder="Ej. María González Pérez" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="commentJudgeCourt">Tribunal o Entidad Jurisdiccional</label>
+                    <input type="text" id="commentJudgeCourt" class="form-control" placeholder="Ej. Primer Tribunal Colegiado en Materia Civil del Primer Circuito" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="commentText">Comentario</label>
+                    <textarea id="commentText" class="form-control" rows="5" placeholder="Escribe tu evaluación cualitativa sobre el juez..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Calificación Asociada (0 - 10)</label>
+                    <div class="rating-container">
+                        <div class="rating-stars" id="commentRatingStars">
+                            <i class="far fa-star" data-value="1"></i>
+                            <i class="far fa-star" data-value="2"></i>
+                            <i class="far fa-star" data-value="3"></i>
+                            <i class="far fa-star" data-value="4"></i>
+                            <i class="far fa-star" data-value="5"></i>
+                            <i class="far fa-star" data-value="6"></i>
+                            <i class="far fa-star" data-value="7"></i>
+                            <i class="far fa-star" data-value="8"></i>
+                            <i class="far fa-star" data-value="9"></i>
+                            <i class="far fa-star" data-value="10"></i>
+                        </div>
+                        <div class="rating-value" id="commentRatingValue">0</div>
+                    </div>
+                </div>
+                
+                <div class="privacy-notice">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Recuerda mantener un lenguaje profesional. Los comentarios difamatorios o sin fundamento serán eliminados.
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Publicar Comentario
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de tabs
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+        
+        // Sistema de rating con estrellas
+        function setupRating(starsElement, valueElement) {
+            const stars = starsElement.querySelectorAll('i');
+            let currentRating = 0;
+            
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const value = parseInt(star.getAttribute('data-value'));
+                    currentRating = value;
+                    valueElement.textContent = value;
+                    
+                    stars.forEach((s, index) => {
+                        if (index < value) {
+                            s.classList.remove('far');
+                            s.classList.add('fas');
+                        } else {
+                            s.classList.remove('fas');
+                            s.classList.add('far');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseover', () => {
+                    const value = parseInt(star.getAttribute('data-value'));
+                    
+                    stars.forEach((s, index) => {
+                        if (index < value) {
+                            s.classList.add('fas');
+                            s.classList.remove('far');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', () => {
+                    stars.forEach((s, index) => {
+                        if (index >= currentRating) {
+                            s.classList.remove('fas');
+                            s.classList.add('far');
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Inicializar ambos sistemas de rating
+        setupRating(document.getElementById('ratingStars'), document.getElementById('ratingValue'));
+        setupRating(document.getElementById('commentRatingStars'), document.getElementById('commentRatingValue'));
+        
+        // Manejo de envío de formularios
+        document.querySelector('#rating .btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const judgeName = document.getElementById('judgeName').value;
+            const rating = document.getElementById('ratingValue').textContent;
+            
+            if (judgeName && rating !== '0') {
+                alert(`Calificación de ${rating}/10 enviada para ${judgeName}`);
+                // Aquí iría la lógica para enviar los datos al servidor
+            } else {
+                alert('Por favor completa todos los campos requeridos');
+            }
+        });
+        
+        document.querySelector('#comment .btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const judgeName = document.getElementById('commentJudgeName').value;
+            const comment = document.getElementById('commentText').value;
+            
+            if (judgeName && comment) {
+                alert(`Comentario enviado para ${judgeName}`);
+                // Aquí iría la lógica para enviar los datos al servidor
+            } else {
+                alert('Por favor completa todos los campos requeridos');
+            }
+        });
+    </script>
+</body>
+</html>

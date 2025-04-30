@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Panel de Administración</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --alert-red: #e63946;
+            --warning-yellow: #ffbe0b;
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--deep-teal);
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-logo i {
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(31, 38, 135, 0.15);
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-title i {
+            margin-right: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-teal);
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-change.positive {
+            color: var(--primary-teal);
+        }
+
+        .stat-change.negative {
+            color: var(--alert-red);
+        }
+
+        .dashboard-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.8rem;
+            color: var(--primary-teal);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-teal);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .table-container {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        th {
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--deep-teal);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(42, 157, 143, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(255, 190, 11, 0.2);
+            color: var(--warning-yellow);
+        }
+
+        .status-resolved {
+            background: rgba(42, 157, 143, 0.2);
+            color: var(--primary-teal);
+        }
+
+        .status-critical {
+            background: rgba(230, 57, 70, 0.2);
+            color: var(--alert-red);
+        }
+
+        .action-link {
+            color: var(--primary-teal);
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .forum-form {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: var(--body-size);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .section-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Admin</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        Estadísticas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        Foros
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-bug"></i>
+                        Errores
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-flag"></i>
+                        Moderación
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Usuarios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        Configuración
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="dashboard-header">
+                <h1>Panel de Administración</h1>
+                <div class="user-menu">
+                    <span>Administrador</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estadísticas Generales -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        Estadísticas Generales
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-calendar"></i>
+                            Filtros
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-title">
+                            <i class="fas fa-users"></i>
+                            Usuarios registrados
+                        </div>
+                        <div class="stat-value">8,742</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            12% este mes
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">
+                            <i class="fas fa-gavel"></i>
+                            Evaluaciones
+                        </div>
+                        <div class="stat-value">24,569</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            8% este mes
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">
+                            <i class="fas fa-comments"></i>
+                            Comentarios
+                        </div>
+                        <div class="stat-value">12,843</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            5% este mes
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Reportes
+                        </div>
+                        <div class="stat-value">127</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-up"></i>
+                            15% este mes
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">
+                            <i class="fas fa-bug"></i>
+                            Errores
+                        </div>
+                        <div class="stat-value">23</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-down"></i>
+                            30% este mes
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">
+                            <i class="fas fa-user-tie"></i>
+                            Juristas activos
+                        </div>
+                        <div class="stat-value">487</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            4% este mes
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Generación de Foros -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        Gestión de Foros
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Nuevo Foro
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="forum-form">
+                    <div class="form-group">
+                        <label for="forum-name">Nombre del Foro</label>
+                        <input type="text" id="forum-name" class="form-control" placeholder="Ej. Derecho Corporativo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="forum-icon">Icono</label>
+                        <select id="forum-icon" class="form-control">
+                            <option value="briefcase">Portafolio</option>
+                            <option value="gavel">Martillo</option>
+                            <option value="balance-scale">Balanza</option>
+                            <option value="home">Casa</option>
+                            <option value="heart">Corazón</option>
+                            <option value="file-contract">Contrato</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="forum-description">Descripción</label>
+                        <textarea id="forum-description" class="form-control" placeholder="Descripción pública del foro que verán los usuarios"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="forum-access">Acceso</label>
+                        <select id="forum-access" class="form-control">
+                            <option value="public">Público - Todos pueden participar</option>
+                            <option value="citizens">Ciudadanos - Solo ciudadanos pueden crear hilos</option>
+                            <option value="jurists">Juristas - Solo juristas pueden responder</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Crear Foro
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monitoreo de Errores -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-bug"></i>
+                        Errores Reportados
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-filter"></i>
+                            Filtrar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                                <th>Reportado por</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#125</td>
+                                <td>Error de sistema</td>
+                                <td>Los comentarios no se cargan en el perfil del juez Martínez</td>
+                                <td>usuario124@ejemplo.com</td>
+                                <td>15/10/2023</td>
+                                <td><span class="status-badge status-pending">Pendiente</span></td>
+                                <td>
+                                    <a href="#" class="action-link">Resolver</a>
+                                    <a href="#" class="action-link">Detalles</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#124</td>
+                                <td>Error de validación</td>
+                                <td>El formulario de registro acepta cédulas profesionales inválidas</td>
+                                <td>admin</td>
+                                <td>14/10/2023</td>
+                                <td><span class="status-badge status-critical">Crítico</span></td>
+                                <td>
+                                    <a href="#" class="action-link">Resolver</a>
+                                    <a href="#" class="action-link">Detalles</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#123</td>
+                                <td>Diseño</td>
+                                <td>El menú móvil no se despliega correctamente en iOS</td>
+                                <td>usuario456@ejemplo.com</td>
+                                <td>12/10/2023</td>
+                                <td><span class="status-badge status-resolved">Resuelto</span></td>
+                                <td>
+                                    <a href="#" class="action-link">Reabrir</a>
+                                    <a href="#" class="action-link">Detalles</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#122</td>
+                                <td>Rendimiento</td>
+                                <td>La página de foros tarda más de 5 segundos en cargar</td>
+                                <td>jurista789@ejemplo.com</td>
+                                <td>10/10/2023</td>
+                                <td><span class="status-badge status-pending">Pendiente</span></td>
+                                <td>
+                                    <a href="#" class="action-link">Resolver</a>
+                                    <a href="#" class="action-link">Detalles</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Monitoreo de Comentarios -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-flag"></i>
+                        Comentarios Reportados
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-filter"></i>
+                            Filtrar por foro
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Foro</th>
+                                <th>Comentario</th>
+                                <th>Usuario</th>
+                                <th>Reportes</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#458</td>
+                                <td>Derecho Laboral</td>
+                                <td>"Ese juez es un incompetente, deberían despedirlo..."</td>
+                                <td>anon_user321</td>
+                                <td>14</td>
+                                <td>16/10/2023</td>
+                                <td>
+                                    <a href="#" class="action-link">Eliminar</a>
+                                    <a href="#" class="action-link">Advertir</a>
+                                    <a href="#" class="action-link">Ignorar</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#457</td>
+                                <td>Derecho Penal</td>
+                                <td>"Todos los abogados son corruptos, especialmente..."</td>
+                                <td>user789</td>
+                                <td>8</td>
+                                <td>15/10/2023</td>
+                                <td>
+                                    <a href="#" class="action-link">Eliminar</a>
+                                    <a href="#" class="action-link">Advertir</a>
+                                    <a href="#" class="action-link">Ignorar</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#456</td>
+                                <td>Derecho Familiar</td>
+                                <td>Contenido spam: "Visite mi página web para..."</td>
+                                <td>spammer123</td>
+                                <td>5</td>
+                                <td>14/10/2023</td>
+                                <td>
+                                    <a href="#" class="action-link">Eliminar</a>
+                                    <a href="#" class="action-link">Banear</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#455</td>
+                                <td>Derecho Civil</td>
+                                <td>"La información de este post es incorrecta porque..."</td>
+                                <td>jurista_verified</td>
+                                <td>1</td>
+                                <td>13/10/2023</td>
+                                <td>
+                                    <a href="#" class="action-link">Ignorar</a>
+                                    <a href="#" class="action-link">Marcar como válido</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulación de interacción con el formulario de foros
+        document.querySelector('.forum-form .btn-primary').addEventListener('click', function() {
+            const forumName = document.getElementById('forum-name').value;
+            if (forumName) {
+                alert(`Nuevo foro "${forumName}" creado exitosamente`);
+                // Aquí iría la lógica para enviar los datos al servidor
+            } else {
+                alert('Por favor ingresa un nombre para el foro');
+            }
+        });
+        
+        // Simulación de resolución de errores
+        document.querySelectorAll('.action-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.textContent.includes('Resolver') || this.textContent.includes('Eliminar')) {
+                    const row = this.closest('tr');
+                    row.querySelector('.status-badge').className = 'status-badge status-resolved';
+                    row.querySelector('.status-badge').textContent = 'Resuelto';
+                    console.log(`Acción realizada: ${this.textContent}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Foros Jurídicos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --highlight: rgba(42, 157, 143, 0.1);
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .forum-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .forum-header h1 {
+            color: var(--deep-teal);
+            margin-bottom: 1rem;
+        }
+
+        .forum-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: var(--body-size);
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 2rem auto 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 1.2rem 1.5rem;
+            border: none;
+            font-size: var(--body-size);
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-btn {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--deep-teal);
+        }
+
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-header {
+            background: var(--primary-teal);
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .category-icon {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-teal);
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-title {
+            font-size: var(--h3-size);
+            margin-bottom: 1rem;
+            color: var(--deep-teal);
+        }
+
+        .category-description {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-top: auto;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-item i {
+            margin-right: 0.5rem;
+            color: var(--primary-teal);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--deep-teal);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .popular-discussions {
+            margin-top: 4rem;
+        }
+
+        .discussions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-all {
+            color: var(--primary-teal);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .view-all i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .view-all:hover i {
+            transform: translateX(3px);
+        }
+
+        .discussions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .discussion-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .discussion-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .discussion-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--deep-teal);
+        }
+
+        .discussion-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .discussion-category {
+            color: var(--primary-teal);
+            font-weight: 500;
+        }
+
+        .discussion-excerpt {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .discussion-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .discussion-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .discussion-stats {
+            display: flex;
+            align-items: center;
+        }
+
+        .discussion-stats span {
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .discussion-stats i {
+            margin-right: 0.3rem;
+            color: var(--primary-teal);
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--primary-teal);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .verified-badge i {
+            margin-right: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .forum-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-btn {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera del Foro -->
+        <div class="glass-card">
+            <div class="forum-header">
+                <h1>Foros Jurídicos Comunitarios</h1>
+                <p>Espacio donde la ciudadanía puede exponer sus dudas y recibir orientación de juristas certificados</p>
+                
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Buscar temas, preguntas o áreas de derecho...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Categorías de Foros -->
+            <h2 class="section-title">
+                <i class="fas fa-gavel"></i>
+                Foros Especializados
+            </h2>
+            
+            <div class="forum-categories">
+                <!-- Categoría 1 -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3 class="category-title">Derecho Civil</h3>
+                        <div class="category-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">Foro especializado en temas de propiedad, contratos, daños y perjuicios, familia y sucesiones.</p>
+                        <button class="btn">
+                            <i class="fas fa-door-open"></i>
+                            Acceder al Foro
+                        </button>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>1,245 temas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>87 juristas activos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categoría 2 -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3 class="category-title">Derecho Penal</h3>
+                        <div class="category-icon">
+                            <i class="fas fa-handcuffs"></i>
+                        </div>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">Discusiones sobre procesos penales, derechos del acusado, delitos y sanciones, sistema carcelario.</p>
+                        <button class="btn">
+                            <i class="fas fa-door-open"></i>
+                            Acceder al Foro
+                        </button>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>982 temas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>64 juristas activos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categoría 3 -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3 class="category-title">Derecho Laboral</h3>
+                        <div class="category-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">Orientación sobre despidos, salarios, horas extras, acoso laboral y relaciones obrero-patronales.</p>
+                        <button class="btn">
+                            <i class="fas fa-door-open"></i>
+                            Acceder al Foro
+                        </button>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>1,532 temas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>72 juristas activos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categoría 4 -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3 class="category-title">Derecho Mercantil</h3>
+                        <div class="category-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">Foro sobre sociedades, contratos mercantiles, quiebras, títulos de crédito y comercio electrónico.</p>
+                        <button class="btn">
+                            <i class="fas fa-door-open"></i>
+                            Acceder al Foro
+                        </button>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>756 temas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>53 juristas activos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categoría 5 -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3 class="category-title">Derecho Familiar</h3>
+                        <div class="category-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">Divorcios, pensiones alimenticias, guarda y custodia, adopciones y violencia intrafamiliar.</p>
+                        <button class="btn">
+                            <i class="fas fa-door-open"></i>
+                            Acceder al Foro
+                        </button>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>1,089 temas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>68 juristas activos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categoría 6 -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3 class="category-title">Derecho Constitucional</h3>
+                        <div class="category-icon">
+                            <i class="fas fa-balance-scale-right"></i>
+                        </div>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">Discusiones sobre amparos, derechos humanos, acciones de inconstitucionalidad y garantías individuales.</p>
+                        <button class="btn">
+                            <i class="fas fa-door-open"></i>
+                            Acceder al Foro
+                        </button>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>432 temas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>41 juristas activos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Discusiones Populares -->
+            <div class="popular-discussions">
+                <div class="discussions-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-fire"></i>
+                        Discusiones Recientes
+                    </h2>
+                    <a href="#" class="view-all">Ver todas <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="discussions-grid">
+                    <!-- Discusión 1 -->
+                    <div class="discussion-card">
+                        <h3 class="discussion-title">¿Cómo proceder con despido injustificado?</h3>
+                        <div class="discussion-meta">
+                            <span class="discussion-category">Derecho Laboral</span>
+                            <span>Hace 2 horas</span>
+                        </div>
+                        <p class="discussion-excerpt">Fui despedido sin causa justificada después de 5 años de trabajo. ¿Qué documentos debo reunir para demandar?...</p>
+                        <div class="discussion-footer">
+                            <div class="discussion-author">
+                                <div class="author-avatar">JM</div>
+                                <span>Juan M.</span>
+                            </div>
+                            <div class="discussion-stats">
+                                <span><i class="fas fa-comment"></i> 7</span>
+                                <span><i class="fas fa-eye"></i> 42</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Discusión 2 -->
+                    <div class="discussion-card">
+                        <h3 class="discussion-title">Problemas con herencia familiar</h3>
+                        <div class="discussion-meta">
+                            <span class="discussion-category">Derecho Civil</span>
+                            <span>Hace 5 horas</span>
+                        </div>
+                        <p class="discussion-excerpt">Mi abuelo falleció sin testamento y hay disputa entre los herederos. ¿Cómo se distribuye la herencia en estos casos?...</p>
+                        <div class="discussion-footer">
+                            <div class="discussion-author">
+                                <div class="author-avatar">AG</div>
+                                <span>Ana G.</span>
+                            </div>
+                            <div class="discussion-stats">
+                                <span><i class="fas fa-comment"></i> 12</span>
+                                <span><i class="fas fa-eye"></i> 89</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Discusión 3 -->
+                    <div class="discussion-card">
+                        <h3 class="discussion-title">Respuesta de jurista: Requisitos para amparo indirecto</h3>
+                        <div class="discussion-meta">
+                            <span class="discussion-category">Derecho Constitucional</span>
+                            <span>Ayer</span>
+                        </div>
+                        <p class="discussion-excerpt">Como abogado especializado en amparos, explico los requisitos procesales para interponer un amparo indirecto contra...</p>
+                        <div class="discussion-footer">
+                            <div class="discussion-author">
+                                <div class="author-avatar">DR</div>
+                                <span>Dr. Rodríguez</span>
+                                <span class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Jurista
+                                </span>
+                            </div>
+                            <div class="discussion-stats">
+                                <span><i class="fas fa-comment"></i> 5</span>
+                                <span><i class="fas fa-eye"></i> 127</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Búsqueda
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.querySelector('.search-input').value;
+            console.log(`Buscando: ${query}`);
+            // Aquí iría la lógica para realizar la búsqueda
+        });
+        
+        // Permitir búsqueda con Enter
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-btn').click();
+            }
+        });
+        
+        // Navegación a foros
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.closest('.category-card').querySelector('.category-title').textContent;
+                console.log(`Accediendo al foro de ${category}`);
+                // Aquí iría la lógica para navegar al foro seleccionado
+            });
+        });
+    </script>
+</body>
+</html>

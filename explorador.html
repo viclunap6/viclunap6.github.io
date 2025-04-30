@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Explorador Judicial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --highlight: rgba(42, 157, 143, 0.1);
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .search-header h1 {
+            color: var(--deep-teal);
+            margin-bottom: 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 1.2rem 1.5rem;
+            border: none;
+            font-size: var(--body-size);
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-btn {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--deep-teal);
+        }
+
+        .search-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-teal);
+        }
+
+        .explorer-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .judiciary-tree {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .tree-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--deep-teal);
+            display: flex;
+            align-items: center;
+        }
+
+        .tree-title i {
+            margin-right: 0.8rem;
+            color: var(--primary-teal);
+        }
+
+        .tree-list {
+            list-style: none;
+        }
+
+        .tree-category {
+            margin-bottom: 1rem;
+        }
+
+        .tree-category > .category-header {
+            font-weight: 600;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tree-category > .category-header:hover {
+            color: var(--primary-teal);
+        }
+
+        .tree-category > .category-header i {
+            transition: transform 0.3s ease;
+        }
+
+        .tree-category.active > .category-header i {
+            transform: rotate(90deg);
+        }
+
+        .subcategory-list {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .tree-category.active > .subcategory-list {
+            display: block;
+        }
+
+        .subcategory-item {
+            padding: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.8rem;
+        }
+
+        .subcategory-item:hover {
+            color: var(--primary-teal);
+            border-left-color: var(--primary-teal);
+        }
+
+        .subcategory-item.active {
+            font-weight: 600;
+            color: var(--primary-teal);
+            border-left-color: var(--primary-teal);
+        }
+
+        .results-container {
+            flex-grow: 1;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-count {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .sort-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .sort-btn.active {
+            opacity: 1;
+            font-weight: 600;
+            color: var(--primary-teal);
+        }
+
+        .sort-btn:hover {
+            opacity: 1;
+        }
+
+        .judges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .judge-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .judge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .judge-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--deep-teal);
+        }
+
+        .judge-court {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .judge-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating-stars {
+            color: #FFD700;
+            margin-right: 0.5rem;
+        }
+
+        .rating-value {
+            font-weight: 600;
+        }
+
+        .reviews-count {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .candidate-badge {
+            display: inline-block;
+            background: var(--highlight);
+            color: var(--primary-teal);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .page-btn.active {
+            background: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+
+        @media (max-width: 768px) {
+            .explorer-container {
+                flex-direction: column;
+            }
+            
+            .judiciary-tree {
+                flex: 1;
+                max-height: none;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-btn {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera de Búsqueda -->
+        <div class="glass-card">
+            <div class="search-header">
+                <h1>Explorador del Sistema Judicial</h1>
+                <p>Encuentra jueces y candidatos en el sistema jurídico mexicano</p>
+                
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Buscar por nombre de juez o tribunal...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="search-filters">
+                    <button class="filter-btn active">Todos</button>
+                    <button class="filter-btn">Candidatos</button>
+                    <button class="filter-btn">Suprema Corte</button>
+                    <button class="filter-btn">Tribunales Colegiados</button>
+                    <button class="filter-btn">Juzgados de Distrito</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="explorer-container">
+            <!-- Árbol Judicial -->
+            <div class="judiciary-tree">
+                <div class="tree-title">
+                    <i class="fas fa-sitemap"></i>
+                    Estructura Judicial
+                </div>
+                
+                <ul class="tree-list">
+                    <!-- Nivel 1 -->
+                    <li class="tree-category active">
+                        <div class="category-header">
+                            <span>Suprema Corte de Justicia</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <ul class="subcategory-list">
+                            <li class="subcategory-item active">Primera Sala</li>
+                            <li class="subcategory-item">Segunda Sala</li>
+                            <li class="subcategory-item">Pleno</li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Nivel 1 -->
+                    <li class="tree-category">
+                        <div class="category-header">
+                            <span>Tribunales Colegiados</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <ul class="subcategory-list">
+                            <li class="subcategory-item">Primer Circuito</li>
+                            <li class="subcategory-item">Segundo Circuito</li>
+                            <li class="subcategory-item">Tercer Circuito</li>
+                            <li class="subcategory-item">Cuarto Circuito</li>
+                            <li class="subcategory-item">Quinto Circuito</li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Nivel 1 -->
+                    <li class="tree-category">
+                        <div class="category-header">
+                            <span>Juzgados de Distrito</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <ul class="subcategory-list">
+                            <li class="subcategory-item">Distrito Federal</li>
+                            <li class="subcategory-item">Estado de México</li>
+                            <li class="subcategory-item">Jalisco</li>
+                            <li class="subcategory-item">Nuevo León</li>
+                            <li class="subcategory-item">Veracruz</li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Nivel 1 -->
+                    <li class="tree-category">
+                        <div class="category-header">
+                            <span>Candidaturas</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <ul class="subcategory-list">
+                            <li class="subcategory-item">Suprema Corte</li>
+                            <li class="subcategory-item">Tribunales Colegiados</li>
+                            <li class="subcategory-item">Juzgados de Distrito</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Resultados -->
+            <div class="results-container">
+                <div class="glass-card">
+                    <div class="results-header">
+                        <div class="results-count">Mostrando 12 de 87 resultados</div>
+                        <div class="sort-options">
+                            <button class="sort-btn active">Mejor calificación</button>
+                            <button class="sort-btn">Más evaluaciones</button>
+                            <button class="sort-btn">A-Z</button>
+                        </div>
+                    </div>
+                    
+                    <div class="judges-grid">
+                        <!-- Juez 1 -->
+                        <div class="judge-card">
+                            <h3 class="judge-name">Dra. María Pérez González</h3>
+                            <div class="judge-court">Primer Tribunal Colegiado en Materia Civil</div>
+                            <div class="judge-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <div class="rating-value">8.4</div>
+                            </div>
+                            <div class="reviews-count">47 evaluaciones</div>
+                        </div>
+                        
+                        <!-- Juez 2 -->
+                        <div class="judge-card">
+                            <h3 class="judge-name">Dr. Juan Martínez Rojas</h3>
+                            <div class="judge-court">Segunda Sala de la Suprema Corte</div>
+                            <div class="judge-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="rating-value">7.9</div>
+                            </div>
+                            <div class="reviews-count">62 evaluaciones</div>
+                        </div>
+                        
+                        <!-- Candidato 3 -->
+                        <div class="judge-card">
+                            <h3 class="judge-name">Lic. Ana Sánchez Cruz</h3>
+                            <div class="judge-court">Candidata a Juez de Distrito</div>
+                            <div class="judge-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-value">9.2</div>
+                            </div>
+                            <div class="reviews-count">28 evaluaciones</div>
+                            <div class="candidate-badge">
+                                <i class="fas fa-vote-yea"></i> En proceso de selección
+                            </div>
+                        </div>
+                        
+                        <!-- Juez 4 -->
+                        <div class="judge-card">
+                            <h3 class="judge-name">Dr. Carlos Jiménez López</h3>
+                            <div class="judge-court">Tercer Tribunal Colegiado en Materia Penal</div>
+                            <div class="judge-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-value">9.5</div>
+                            </div>
+                            <div class="reviews-count">89 evaluaciones</div>
+                        </div>
+                        
+                        <!-- Candidato 5 -->
+                        <div class="judge-card">
+                            <h3 class="judge-name">Lic. Roberto Díaz Mendoza</h3>
+                            <div class="judge-court">Candidato a Magistrado</div>
+                            <div class="judge-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="rating-value">8.1</div>
+                            </div>
+                            <div class="reviews-count">35 evaluaciones</div>
+                            <div class="candidate-badge">
+                                <i class="fas fa-vote-yea"></i> En proceso de selección
+                            </div>
+                        </div>
+                        
+                        <!-- Juez 6 -->
+                        <div class="judge-card">
+                            <h3 class="judge-name">Dra. Laura Gómez Fernández</h3>
+                            <div class="judge-court">Juzgado Séptimo de Distrito</div>
+                            <div class="judge-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <div class="rating-value">8.7</div>
+                            </div>
+                            <div class="reviews-count">54 evaluaciones</div>
+                        </div>
+                    </div>
+                    
+                    <div class="pagination">
+                        <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de árbol judicial interactivo
+        document.querySelectorAll('.tree-category > .category-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const category = this.parentElement;
+                category.classList.toggle('active');
+            });
+        });
+        
+        // Sistema de filtros
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aquí iría la lógica para filtrar los resultados
+                console.log(`Filtrando por: ${this.textContent}`);
+            });
+        });
+        
+        // Sistema de ordenamiento
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aquí iría la lógica para reordenar los resultados
+                console.log(`Ordenando por: ${this.textContent}`);
+            });
+        });
+        
+        // Paginación
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('active')) return;
+                
+                document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aquí iría la lógica para cambiar de página
+                if (this.querySelector('i')) {
+                    console.log(`Navegando a página ${this.textContent.includes('left') ? 'anterior' : 'siguiente'}`);
+                } else {
+                    console.log(`Yendo a página ${this.textContent}`);
+                }
+            });
+        });
+        
+        // Búsqueda
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.querySelector('.search-input').value;
+            console.log(`Buscando: ${query}`);
+            // Aquí iría la lógica para realizar la búsqueda
+        });
+        
+        // Permitir búsqueda con Enter
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>
