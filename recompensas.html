@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Sistema de Recompensas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .rewards-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .rewards-header h1 {
+            color: var(--deep-teal);
+            margin-bottom: 1rem;
+        }
+
+        .rewards-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: var(--body-size);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .tab.active {
+            background: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+
+        .tab:hover:not(.active) {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .badge-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .badge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .badge-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .badge-level {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .level-gold {
+            background: var(--gold);
+        }
+
+        .level-silver {
+            background: var(--silver);
+        }
+
+        .level-bronze {
+            background: var(--bronze);
+        }
+
+        .badge-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .badge-progress {
+            height: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-teal);
+            border-radius: 5px;
+        }
+
+        .badge-status {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .ranking-container {
+            margin-top: 2rem;
+        }
+
+        .ranking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .ranking-period {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ranking-period select {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .ranking-table th, .ranking-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .ranking-table th {
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--deep-teal);
+            font-weight: 600;
+        }
+
+        .ranking-table tr:hover {
+            background: rgba(42, 157, 143, 0.05);
+        }
+
+        .rank {
+            font-weight: 600;
+            width: 50px;
+        }
+
+        .rank-1 {
+            color: var(--gold);
+        }
+
+        .rank-2 {
+            color: var(--silver);
+        }
+
+        .rank-3 {
+            color: var(--bronze);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .certificate-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-icon {
+            font-size: 3rem;
+            color: var(--primary-teal);
+            margin-bottom: 1rem;
+        }
+
+        .certificate-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-teal);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .progress-container {
+            margin-top: 3rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-large {
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-teal);
+            border-radius: 5px;
+            width: 65%;
+        }
+
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .metrics-grid, .badges-grid, .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ranking-period {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <!-- Cabecera -->
+            <div class="rewards-header">
+                <h1>Sistema de Recompensas</h1>
+                <p>Reconocemos y premiamos tu contribución a la transparencia judicial</p>
+            </div>
+            
+            <!-- Pestañas -->
+            <div class="tabs">
+                <div class="tab active" data-tab="badges">Insignias</div>
+                <div class="tab" data-tab="ranking">Ranking</div>
+                <div class="tab" data-tab="certificates">Certificados</div>
+                <div class="tab" data-tab="metrics">Métricas</div>
+            </div>
+            
+            <!-- Sección de Insignias -->
+            <div class="tab-content active" id="badges">
+                <h2 class="section-title">
+                    <i class="fas fa-award"></i>
+                    Insignias de Reconocimiento
+                </h2>
+                <p>Gana insignias al completar logros en la plataforma. Muestra tu experiencia y compromiso con la transparencia judicial.</p>
+                
+                <div class="badges-grid">
+                    <!-- Insignia 1 -->
+                    <div class="badge-card">
+                        <div class="badge-icon">
+                            <img src="badge-legal-eagle.svg" alt="Águila Legal">
+                            <div class="badge-level level-gold">3</div>
+                        </div>
+                        <h3 class="badge-title">Águila Legal</h3>
+                        <p class="badge-description">Por evaluar a más de 50 jueces con comentarios detallados</p>
+                        <div class="badge-progress">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                        <div class="badge-status">45/50 completados</div>
+                    </div>
+                    
+                    <!-- Insignia 2 -->
+                    <div class="badge-card">
+                        <div class="badge-icon">
+                            <img src="badge-community.svg" alt="Guía Comunitario">
+                            <div class="badge-level level-silver">2</div>
+                        </div>
+                        <h3 class="badge-title">Guía Comunitario</h3>
+                        <p class="badge-description">Por ayudar a otros usuarios con 100+ respuestas en foros</p>
+                        <div class="badge-progress">
+                            <div class="progress-bar" style="width: 65%;"></div>
+                        </div>
+                        <div class="badge-status">65/100 completados</div>
+                    </div>
+                    
+                    <!-- Insignia 3 -->
+                    <div class="badge-card">
+                        <div class="badge-icon">
+                            <img src="badge-accuracy.svg" alt="Precisión Jurídica">
+                            <div class="badge-level level-bronze">1</div>
+                        </div>
+                        <h3 class="badge-title">Precisión Jurídica</h3>
+                        <p class="badge-description">Por recibir 50+ votos positivos en tus evaluaciones</p>
+                        <div class="badge-progress">
+                            <div class="progress-bar" style="width: 30%;"></div>
+                        </div>
+                        <div class="badge-status">15/50 completados</div>
+                    </div>
+                    
+                    <!-- Insignia 4 -->
+                    <div class="badge-card">
+                        <div class="badge-icon">
+                            <img src="badge-pioneer.svg" alt="Pionero">
+                        </div>
+                        <h3 class="badge-title">Pionero</h3>
+                        <p class="badge-description">Por unirse en los primeros 6 meses de la plataforma</p>
+                        <div class="badge-status">¡Obtenida!</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Ranking -->
+            <div class="tab-content" id="ranking">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    Ranking de Juristas
+                </h2>
+                <p>Top de los juristas más activos y valiosos de la plataforma este mes.</p>
+                
+                <div class="ranking-container">
+                    <div class="ranking-header">
+                        <h3>Top 10 Juristas</h3>
+                        <div class="ranking-period">
+                            <span>Periodo:</span>
+                            <select>
+                                <option>Octubre 2023</option>
+                                <option>Septiembre 2023</option>
+                                <option>Agosto 2023</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <table class="ranking-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Jurista</th>
+                                <th>Evaluaciones</th>
+                                <th>Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="rank rank-1">1</td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">DR</div>
+                                        <span>Dra. Rodríguez</span>
+                                    </div>
+                                </td>
+                                <td>42</td>
+                                <td>1,245</td>
+                            </tr>
+                            <tr>
+                                <td class="rank rank-2">2</td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">JM</div>
+                                        <span>Dr. Martínez</span>
+                                    </div>
+                                </td>
+                                <td>38</td>
+                                <td>1,187</td>
+                            </tr>
+                            <tr>
+                                <td class="rank rank-3">3</td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">LG</div>
+                                        <span>Lic. González</span>
+                                    </div>
+                                </td>
+                                <td>35</td>
+                                <td>1,120</td>
+                            </tr>
+                            <!-- Más filas... -->
+                        </tbody>
+                    </table>
+                    
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <h3>Tu posición actual</h3>
+                            <span>#27 de 1,452 juristas</span>
+                        </div>
+                        <div class="progress-bar-large">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="progress-details">
+                            <span>Top 2%</span>
+                            <span>1,087 puntos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Certificados -->
+            <div class="tab-content" id="certificates">
+                <h2 class="section-title">
+                    <i class="fas fa-certificate"></i>
+                    Certificados de Participación
+                </h2>
+                <p>Certificados que acreditan tu contribución a la transparencia judicial.</p>
+                
+                <div class="certificates-grid">
+                    <!-- Certificado 1 -->
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="certificate-title">Evaluador Certificado</h3>
+                        <p class="certificate-description">Por completar 100+ evaluaciones verificadas con estándares profesionales</p>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Descargar
+                        </button>
+                    </div>
+                    
+                    <!-- Certificado 2 -->
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="certificate-title">Experto Comunitario</h3>
+                        <p class="certificate-description">Por aportar 50+ respuestas verificadas en foros de discusión</p>
+                        <button class="btn btn-primary" disabled>
+                            <i class="fas fa-lock"></i>
+                            Pendiente
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Métricas -->
+            <div class="tab-content" id="metrics">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Métricas de Participación
+                </h2>
+                <p>Cómo calculamos tu impacto y contribución en la plataforma.</p>
+                
+                <div class="metrics-grid">
+                    <!-- Métrica 1 -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3>Evaluaciones de Jueces</h3>
+                        <p>Cada evaluación verificada suma puntos según su calidad (detalle, fundamentación, objetividad).</p>
+                        <ul>
+                            <li>Evaluación básica: 10 pts</li>
+                            <li>Con comentario detallado: 25 pts</li>
+                            <li>Con fundamentación legal: 40 pts</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Métrica 2 -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Participación en Foros</h3>
+                        <p>Las respuestas a preguntas de la comunidad generan puntos cuando son marcadas como útiles.</p>
+                        <ul>
+                            <li>Respuesta publicada: 5 pts</li>
+                            <li>Voto positivo recibido: +10 pts</li>
+                            <li>Marcada como solución: +25 pts</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Métrica 3 -->
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Calidad de Contribuciones</h3>
+                        <p>La precisión y utilidad de tus aportes son validadas por otros juristas y el equipo de moderación.</p>
+                        <ul>
+                            <li>Precisión jurídica verificada: +15 pts</li>
+                            <li>Citación de fuentes: +20 pts</li>
+                            <li>Retroalimentación positiva: +10 pts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const target = this.getAttribute('data-tab');
+                
+                // Actualizar pestañas activas
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Mostrar contenido correspondiente
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+            });
+        });
+        
+        // Simulación de descarga de certificado
+        document.querySelectorAll('.btn-primary:not([disabled])').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.textContent.includes('Descargar')) {
+                    alert('Certificado descargado exitosamente');
+                    // Aquí iría la lógica para generar/descargar el PDF
+                }
+            });
+        });
+    </script>
+</body>
+</html>

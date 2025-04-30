@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Perfil del Juez</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --star-rating: #FFD700;
+            --like-color: #e63946;
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .judge-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .judge-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--deep-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .judge-info h1 {
+            color: var(--deep-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .judge-meta {
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: var(--body-size);
+        }
+
+        .meta-item i {
+            margin-right: 0.8rem;
+            color: var(--primary-teal);
+            width: 24px;
+            text-align: center;
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--deep-teal);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.8rem;
+            color: var(--primary-teal);
+        }
+
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .average-rating {
+            text-align: center;
+            margin-right: 3rem;
+        }
+
+        .average-value {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--deep-teal);
+            line-height: 1;
+        }
+
+        .average-label {
+            font-size: var(--caption-size);
+            opacity: 0.8;
+        }
+
+        .star-distribution {
+            flex-grow: 1;
+        }
+
+        .star-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .star-label {
+            width: 80px;
+            font-weight: 500;
+        }
+
+        .star-bar {
+            flex-grow: 1;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+
+        .star-fill {
+            height: 100%;
+            background: var(--star-rating);
+            border-radius: 5px;
+        }
+
+        .star-count {
+            width: 40px;
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .total-reviews {
+            margin-top: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .comments-list {
+            margin-top: 2rem;
+        }
+
+        .comment-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .comment-rating {
+            color: var(--star-rating);
+            font-weight: 700;
+        }
+
+        .comment-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .comment-text {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .comment-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .like-btn {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .like-btn:hover {
+            color: var(--like-color);
+        }
+
+        .like-btn.liked {
+            color: var(--like-color);
+        }
+
+        .like-count {
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--primary-teal);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 1rem;
+        }
+
+        .verified-badge i {
+            margin-right: 0.3rem;
+        }
+
+        .sort-options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .sort-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-dark);
+            opacity: 0.6;
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .sort-btn.active {
+            opacity: 1;
+            color: var(--primary-teal);
+        }
+
+        .sort-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-teal);
+        }
+
+        @media (max-width: 768px) {
+            .judge-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .judge-avatar {
+                margin-right: 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .rating-summary {
+                flex-direction: column;
+            }
+            
+            .average-rating {
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .star-row {
+                flex-wrap: wrap;
+            }
+            
+            .star-label {
+                width: 100%;
+                margin-bottom: 0.3rem;
+            }
+            
+            .star-bar {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Perfil del Juez -->
+        <div class="glass-card">
+            <div class="judge-header">
+                <div class="judge-avatar">MP</div>
+                <div class="judge-info">
+                    <h1>Dra. María Pérez González</h1>
+                    <div class="judge-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Primer Tribunal Colegiado en Materia Civil del Primer Circuito</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>En funciones desde: 15 de marzo de 2015</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-gavel"></i>
+                            <span>Áreas de especialidad: Derecho Civil, Derecho Mercantil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estadísticas de Calificación -->
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i>
+                Evaluaciones Estadísticas
+            </h2>
+            
+            <div class="rating-summary">
+                <div class="average-rating">
+                    <div class="average-value">8.4</div>
+                    <div class="average-label">Promedio de 10</div>
+                    <div class="total-reviews">Basado en 47 evaluaciones</div>
+                </div>
+                
+                <div class="star-distribution">
+                    <div class="star-row">
+                        <div class="star-label">5 estrellas</div>
+                        <div class="star-bar">
+                            <div class="star-fill" style="width: 65%;"></div>
+                        </div>
+                        <div class="star-count">31</div>
+                    </div>
+                    <div class="star-row">
+                        <div class="star-label">4 estrellas</div>
+                        <div class="star-bar">
+                            <div class="star-fill" style="width: 25%;"></div>
+                        </div>
+                        <div class="star-count">12</div>
+                    </div>
+                    <div class="star-row">
+                        <div class="star-label">3 estrellas</div>
+                        <div class="star-bar">
+                            <div class="star-fill" style="width: 8%;"></div>
+                        </div>
+                        <div class="star-count">4</div>
+                    </div>
+                    <div class="star-row">
+                        <div class="star-label">2 estrellas</div>
+                        <div class="star-bar">
+                            <div class="star-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="star-count">0</div>
+                    </div>
+                    <div class="star-row">
+                        <div class="star-label">1 estrella</div>
+                        <div class="star-bar">
+                            <div class="star-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="star-count">0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comentarios -->
+            <div class="comments-section">
+                <div class="section-title">
+                    <i class="fas fa-comments"></i>
+                    Comentarios
+                </div>
+                
+                <div class="sort-options">
+                    <button class="sort-btn active">Más votados</button>
+                    <button class="sort-btn">Más recientes</button>
+                </div>
+                
+                <div class="comments-list">
+                    <!-- Comentario 1 -->
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="comment-rating">
+                                <i class="fas fa-star"></i> 9/10
+                                <span class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Jurista Verificado
+                                </span>
+                            </div>
+                            <div class="comment-date">15 de octubre, 2023</div>
+                        </div>
+                        <div class="comment-text">
+                            La Dra. Pérez González demuestra un profundo conocimiento del derecho civil y una gran capacidad para analizar casos complejos. Sus sentencias están bien fundamentadas y muestran un equilibrio entre la aplicación estricta de la ley y consideraciones de equidad.
+                        </div>
+                        <div class="comment-actions">
+                            <button class="like-btn liked">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span class="like-count">24</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Comentario 2 -->
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="comment-rating">
+                                <i class="fas fa-star"></i> 8/10
+                                <span class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Jurista Verificado
+                                </span>
+                            </div>
+                            <div class="comment-date">2 de octubre, 2023</div>
+                        </div>
+                        <div class="comment-text">
+                            Excelente juez en materia mercantil. Sus resoluciones son claras y oportunas. Podría mejorar en los tiempos de respuesta cuando los casos son particularmente complejos, pero en general es una de las mejores juezas en su especialidad.
+                        </div>
+                        <div class="comment-actions">
+                            <button class="like-btn">
+                                <i class="far fa-thumbs-up"></i>
+                                <span class="like-count">18</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Comentario 3 -->
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <div class="comment-rating">
+                                <i class="fas fa-star"></i> 10/10
+                                <span class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Jurista Verificado
+                                </span>
+                            </div>
+                            <div class="comment-date">25 de septiembre, 2023</div>
+                        </div>
+                        <div class="comment-text">
+                            He tenido el privilegio de presentar casos ante la Dra. Pérez en varias ocasiones. Su capacidad para identificar los puntos clave de un caso es excepcional. Respeta los procedimientos y garantiza un juicio justo para todas las partes.
+                        </div>
+                        <div class="comment-actions">
+                            <button class="like-btn">
+                                <i class="far fa-thumbs-up"></i>
+                                <span class="like-count">15</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de likes
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const countElement = this.querySelector('.like-count');
+                let count = parseInt(countElement.textContent);
+                
+                if (this.classList.contains('liked')) {
+                    this.classList.remove('liked');
+                    this.querySelector('i').classList.replace('fas', 'far');
+                    countElement.textContent = count - 1;
+                } else {
+                    this.classList.add('liked');
+                    this.querySelector('i').classList.replace('far', 'fas');
+                    countElement.textContent = count + 1;
+                }
+            });
+        });
+        
+        // Sistema de ordenamiento
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aquí iría la lógica para reordenar los comentarios
+                // Por ahora solo mostramos un mensaje
+                const sortType = this.textContent.toLowerCase();
+                console.log(`Ordenando comentarios por: ${sortType}`);
+            });
+        });
+    </script>
+</body>
+</html>

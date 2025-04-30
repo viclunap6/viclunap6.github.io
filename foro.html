@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Foro de Derecho Laboral</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --highlight: rgba(42, 157, 143, 0.1);
+            --reply-highlight: rgba(233, 245, 239, 0.7);
+            
+            --h1-size: 2.5rem;
+            --h2-size: 1.8rem;
+            --h3-size: 1.5rem;
+            --body-size: 1.1rem;
+            --caption-size: 0.9rem;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .forum-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .forum-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+        }
+
+        .forum-info h1 {
+            color: var(--deep-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .forum-description {
+            opacity: 0.8;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-teal);
+            text-decoration: none;
+            margin: 0 0.3rem;
+        }
+
+        .breadcrumb a:first-child {
+            margin-left: 0;
+        }
+
+        .breadcrumb i {
+            margin: 0 0.3rem;
+            opacity: 0.6;
+        }
+
+        .new-thread-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+        }
+
+        .new-thread-btn:hover {
+            background: var(--deep-teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+        }
+
+        .new-thread-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .thread-search {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+
+        .thread-search input {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            font-size: var(--body-size);
+            transition: all 0.3s ease;
+        }
+
+        .thread-search input:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+        }
+
+        .thread-search button {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .thread-search button:hover {
+            background: var(--deep-teal);
+        }
+
+        .thread-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-teal);
+        }
+
+        .thread-list {
+            margin-top: 2rem;
+        }
+
+        .thread-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .thread-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .thread-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .thread-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+        }
+
+        .author-type {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .thread-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .thread-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .thread-title {
+            font-size: var(--h3-size);
+            margin-bottom: 1rem;
+            color: var(--deep-teal);
+        }
+
+        .thread-text {
+            line-height: 1.6;
+        }
+
+        .thread-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .thread-stats {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .stat-item i {
+            margin-right: 0.5rem;
+            color: var(--primary-teal);
+        }
+
+        .thread-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-teal);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .action-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--primary-teal);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .verified-badge i {
+            margin-right: 0.3rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .page-btn.active {
+            background: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+
+        @media (max-width: 768px) {
+            .forum-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .forum-title {
+                margin-bottom: 1.5rem;
+            }
+            
+            .breadcrumb {
+                margin-top: 1rem;
+            }
+            
+            .thread-header {
+                flex-direction: column;
+            }
+            
+            .thread-date {
+                margin-top: 0.5rem;
+                align-self: flex-end;
+            }
+            
+            .thread-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .thread-actions {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera del Foro -->
+        <div class="glass-card">
+            <div class="forum-header">
+                <div class="forum-title">
+                    <div class="forum-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="forum-info">
+                        <h1>Foro de Derecho Laboral</h1>
+                        <p class="forum-description">Discusiones sobre despidos, salarios, horas extras, acoso laboral y relaciones obrero-patronales</p>
+                    </div>
+                </div>
+                <div class="breadcrumb">
+                    <a href="#">Foros</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <a href="#">Derecho Laboral</a>
+                </div>
+            </div>
+            
+            <button class="new-thread-btn">
+                <i class="fas fa-plus"></i>
+                Nuevo Tema
+            </button>
+            
+            <!-- Búsqueda y Filtros -->
+            <div class="thread-search">
+                <input type="text" placeholder="Buscar en este foro...">
+                <button>
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="thread-filters">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Sin resolver</button>
+                <button class="filter-btn">Resueltos</button>
+                <button class="filter-btn">Recientes</button>
+                <button class="filter-btn">Populares</button>
+            </div>
+            
+            <!-- Listado de Hilos -->
+            <div class="thread-list">
+                <!-- Hilo 1 -->
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <div class="thread-author">
+                            <div class="author-avatar">JM</div>
+                            <div class="author-info">
+                                <span class="author-name">Juan Mendoza</span>
+                                <span class="author-type">Ciudadano</span>
+                            </div>
+                        </div>
+                        <div class="thread-date">Hace 2 horas</div>
+                    </div>
+                    <div class="thread-content">
+                        <h3 class="thread-title">Despido injustificado después de 5 años</h3>
+                        <p class="thread-text">Fui despedido sin causa justificada después de 5 años de trabajo. No me dieron ninguna explicación por escrito, solo me dijeron que ya no era necesario mi puesto. ¿Qué documentos debo reunir para demandar? ¿Cuáles son mis derechos en este caso?</p>
+                    </div>
+                    <div class="thread-footer">
+                        <div class="thread-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comment"></i>
+                                <span>7 respuestas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>42 vistas</span>
+                            </div>
+                        </div>
+                        <div class="thread-actions">
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                                Seguir
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-share"></i>
+                                Compartir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hilo 2 -->
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <div class="thread-author">
+                            <div class="author-avatar">DR</div>
+                            <div class="author-info">
+                                <span class="author-name">Dra. Rodríguez</span>
+                                <span class="author-type">Jurista Certificado</span>
+                                <span class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Verificado
+                                </span>
+                            </div>
+                        </div>
+                        <div class="thread-date">Ayer</div>
+                    </div>
+                    <div class="thread-content">
+                        <h3 class="thread-title">Guía: Cómo calcular liquidación correctamente</h3>
+                        <p class="thread-text">Como abogado laboral con 15 años de experiencia, he preparado esta guía detallada sobre cómo calcular correctamente tu liquidación cuando sufres un despido injustificado. Incluye ejemplos prácticos y fórmulas actualizadas según la última reforma laboral.</p>
+                    </div>
+                    <div class="thread-footer">
+                        <div class="thread-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comment"></i>
+                                <span>15 respuestas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>128 vistas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Resuelto</span>
+                            </div>
+                        </div>
+                        <div class="thread-actions">
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                                Seguir
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-share"></i>
+                                Compartir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hilo 3 -->
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <div class="thread-author">
+                            <div class="author-avatar">AG</div>
+                            <div class="author-info">
+                                <span class="author-name">Ana González</span>
+                                <span class="author-type">Ciudadano</span>
+                            </div>
+                        </div>
+                        <div class="thread-date">3 días atrás</div>
+                    </div>
+                    <div class="thread-content">
+                        <h3 class="thread-title">Horas extras no pagadas - ¿Qué hacer?</h3>
+                        <p class="thread-text">Durante los últimos 6 meses he trabajado en promedio 10 horas extras por semana que no me han pagado. Tengo registros de mis horarios. ¿Cuál es el mejor procedimiento para reclamar este pago? ¿Debo acudir directamente a la PROFEDET o primero hablar con RH?</p>
+                    </div>
+                    <div class="thread-footer">
+                        <div class="thread-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-comment"></i>
+                                <span>5 respuestas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>76 vistas</span>
+                            </div>
+                        </div>
+                        <div class="thread-actions">
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i>
+                                Seguir
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-share"></i>
+                                Compartir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de filtros
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aquí iría la lógica para filtrar los hilos
+                console.log(`Filtrando por: ${this.textContent}`);
+            });
+        });
+        
+        // Nuevo hilo
+        document.querySelector('.new-thread-btn').addEventListener('click', function() {
+            console.log('Creando nuevo hilo');
+            // Aquí iría la lógica para abrir el formulario de nuevo hilo
+        });
+        
+        // Búsqueda
+        document.querySelector('.thread-search button').addEventListener('click', function() {
+            const query = document.querySelector('.thread-search input').value;
+            console.log(`Buscando: ${query}`);
+            // Aquí iría la lógica para realizar la búsqueda
+        });
+        
+        // Permitir búsqueda con Enter
+        document.querySelector('.thread-search input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.thread-search button').click();
+            }
+        });
+        
+        // Paginación
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('active')) return;
+                
+                document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aquí iría la lógica para cambiar de página
+                if (this.querySelector('i')) {
+                    console.log(`Navegando a página ${this.textContent.includes('left') ? 'anterior' : 'siguiente'}`);
+                } else {
+                    console.log(`Yendo a página ${this.textContent}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misjueces.mx - Recuperar Contraseña</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-teal: #2a9d8f;
+            --deep-teal: #264653;
+            --light-teal: #e9f5ef;
+            --glass-white: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --alert-red: #e63946;
+            --success-green: #2a9d8f;
+            
+            --border-radius: 12px;
+            --spacing-unit: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-teal) 0%, #ffffff 100%);
+            line-height: 1.7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .recovery-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--deep-teal);
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .step.active {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .step.completed {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 20px;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-teal);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-warning {
+            background: rgba(255, 190, 11, 0.2);
+            color: #8a6d3b;
+        }
+
+        .alert-success {
+            background: rgba(42, 157, 143, 0.2);
+            color: var(--success-green);
+        }
+
+        .alert i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .password-strength {
+            height: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak {
+            background: var(--alert-red);
+            width: 30%;
+        }
+
+        .strength-medium {
+            background: #FFBE0B;
+            width: 60%;
+        }
+
+        .strength-strong {
+            background: var(--success-green);
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .timer {
+            font-weight: 600;
+            color: var(--alert-red);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .glass-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Paso 1: Solicitud de email -->
+    <div class="recovery-container" id="step1-container">
+        <div class="glass-card">
+            <img src="logo-misjueces.svg" alt="misjueces.mx" class="logo">
+            
+            <div class="step-indicator">
+                <div class="step active">1</div>
+                <div class="step">2</div>
+                <div class="step">3</div>
+            </div>
+            
+            <h1>Recupera tu contraseña</h1>
+            <p>Ingresa el email asociado a tu cuenta para recibir un enlace de recuperación.</p>
+            
+            <form id="email-form">
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" class="form-control" placeholder="tucorreo@ejemplo.com" required>
+                </div>
+                
+                <!-- reCAPTCHA -->
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6LcKqZEpAAAAAFXr9J3Z4J7X9Z4J7X9Z4J7X9Z4J"></div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar enlace
+                </button>
+            </form>
+            
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-circle"></i>
+                El enlace de recuperación expirará en 24 horas por seguridad.
+            </div>
+            
+            <a href="login.html" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Volver al inicio de sesión
+            </a>
+        </div>
+    </div>
+    
+    <!-- Paso 2: Confirmación de email enviado (oculto inicialmente) -->
+    <div class="recovery-container hidden" id="step2-container">
+        <div class="glass-card">
+            <img src="logo-misjueces.svg" alt="misjueces.mx" class="logo">
+            
+            <div class="step-indicator">
+                <div class="step completed"><i class="fas fa-check"></i></div>
+                <div class="step active">2</div>
+                <div class="step">3</div>
+            </div>
+            
+            <h1>Revisa tu correo</h1>
+            
+            <div class="alert alert-success">
+                <i class="fas fa-envelope"></i>
+                Hemos enviado un enlace de recuperación a <strong id="user-email-display">usuario@ejemplo.com</strong>.
+            </div>
+            
+            <p>Si no encuentras el correo, revisa tu carpeta de spam o solicita otro enlace.</p>
+            
+            <button id="resend-btn" class="btn btn-secondary" disabled>
+                <i class="fas fa-redo"></i>
+                Reenviar enlace (<span class="timer">60</span>s)
+            </button>
+        </div>
+    </div>
+    
+    <!-- Paso 3: Formulario de nueva contraseña (oculto inicialmente) -->
+    <div class="recovery-container hidden" id="step3-container">
+        <div class="glass-card">
+            <img src="logo-misjueces.svg" alt="misjueces.mx" class="logo">
+            
+            <div class="step-indicator">
+                <div class="step completed"><i class="fas fa-check"></i></div>
+                <div class="step completed"><i class="fas fa-check"></i></div>
+                <div class="step active">3</div>
+            </div>
+            
+            <h1>Crea una nueva contraseña</h1>
+            <p>Por seguridad, tu nueva contraseña debe ser diferente a las anteriores.</p>
+            
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="new-password">Nueva contraseña</label>
+                    <input type="password" id="new-password" class="form-control" placeholder="••••••••" required>
+                    <div class="password-strength">
+                        <div class="strength-bar" id="strength-bar"></div>
+                    </div>
+                    <small>Mínimo 8 caracteres, incluir mayúsculas, números y símbolos</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar contraseña</label>
+                    <input type="password" id="confirm-password" class="form-control" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Actualizar contraseña
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script de Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <script>
+        // Simulación del flujo de recuperación
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            
+            // Validación básica
+            if (email.includes('@') && email.includes('.')) {
+                // Mostrar paso 2
+                document.getElementById('step1-container').classList.add('hidden');
+                document.getElementById('step2-container').classList.remove('hidden');
+                document.getElementById('user-email-display').textContent = email;
+                
+                // Temporizador para reenviar
+                let seconds = 60;
+                const timerElement = document.querySelector('.timer');
+                const resendBtn = document.getElementById('resend-btn');
+                
+                const interval = setInterval(() => {
+                    seconds--;
+                    timerElement.textContent = seconds;
+                    
+                    if (seconds <= 0) {
+                        clearInterval(interval);
+                        resendBtn.disabled = false;
+                        resendBtn.innerHTML = '<i class="fas fa-redo"></i> Reenviar enlace';
+                    }
+                }, 1000);
+                
+                resendBtn.addEventListener('click', function() {
+                    alert(`Nuevo enlace enviado a ${email}`);
+                    this.disabled = true;
+                    seconds = 60;
+                    timerElement.textContent = seconds;
+                    
+                    const newInterval = setInterval(() => {
+                        seconds--;
+                        timerElement.textContent = seconds;
+                        
+                        if (seconds <= 0) {
+                            clearInterval(newInterval);
+                            resendBtn.disabled = false;
+                            resendBtn.innerHTML = '<i class="fas fa-redo"></i> Reenviar enlace';
+                        }
+                    }, 1000);
+                });
+            } else {
+                alert('Por favor ingresa un email válido');
+            }
+        });
+        
+        // Simulación de enlace clickeado (normalmente sería parámetro en URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('token') === 'demo') {
+            document.getElementById('step1-container').classList.add('hidden');
+            document.getElementById('step3-container').classList.remove('hidden');
+        }
+        
+        // Validación de fortaleza de contraseña
+        document.getElementById('new-password').addEventListener('input', function() {
+            const strengthBar = document.getElementById('strength-bar');
+            const password = this.value;
+            let strength = 0;
+            
+            // Validar longitud
+            if (password.length >= 8) strength += 1;
+            
+            // Validar mayúsculas
+            if (/[A-Z]/.test(password)) strength += 1;
+            
+            // Validar números
+            if (/[0-9]/.test(password)) strength += 1;
+            
+            // Validar símbolos
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            
+            // Actualizar barra
+            strengthBar.className = 'strength-bar';
+            if (password.length === 0) {
+                strengthBar.style.width = '0%';
+            } else if (strength <= 1) {
+                strengthBar.classList.add('strength-weak');
+            } else if (strength <= 3) {
+                strengthBar.classList.add('strength-medium');
+            } else {
+                strengthBar.classList.add('strength-strong');
+            }
+        });
+        
+        // Validación de coincidencia de contraseñas
+        document.getElementById('password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (newPassword !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                alert('La contraseña debe tener al menos 8 caracteres');
+                return;
+            }
+            
+            // Simular éxito
+            alert('¡Contraseña actualizada correctamente! Serás redirigido al login.');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
