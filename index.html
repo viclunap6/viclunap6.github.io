@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>misjueces.mx - Justicia Transparente</title>
+    <title>misjueces.mx - Evaluación de Aspirantes a Juez</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -379,63 +379,35 @@
             box-shadow: 0 5px 15px rgba(42, 157, 143, 0.2);
         }
 
-        /* Testimonios */
-        .testimonials {
+        /* About Us Section */
+        .about-us {
             background: linear-gradient(135deg, var(--deep-teal) 0%, #1e3a5f 100%);
             color: var(--text-light);
         }
 
-        .testimonials .section-title {
+        .about-us .section-title {
             color: white;
         }
 
-        .testimonials .section-title::after {
+        .about-us .section-title::after {
             background: var(--primary-teal);
         }
 
-        .testimonials-grid {
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Privacy Section */
+        .privacy {
+            background: var(--light-teal);
+        }
+
+        .privacy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
-        }
-
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .testimonial-text::before {
-            content: '"';
-            font-size: 4rem;
-            position: absolute;
-            top: -20px;
-            left: -15px;
-            color: rgba(255, 255, 255, 0.1);
-            font-family: serif;
-            line-height: 1;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .testimonial-author img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 1rem;
-            object-fit: cover;
-            border: 2px solid var(--primary-teal);
         }
 
         /* Footer */
@@ -490,6 +462,22 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-teal);
+        }
+
         /* Efectos y animaciones */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -538,26 +526,19 @@
                     <a href="acceso.html" class="nav-link">Ingresa</a>
                 </li>
                 <li class="nav-item">
-                    <a href="abogado.html" class="nav-link">Perfil</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="recompensas.html" class="dropdown-item">Recompensas</a></li>
-                        <li><a href="recuperación.html" class="dropdown-item">Recuperación</a></li>
-                    </ul>
+                    <a href="explorador.html" class="nav-link">Explora</a>
                 </li>
                 <li class="nav-item">
-                    <a href="admin.html" class="nav-link">Administración</a>
+                    <a href="#conocenos" class="nav-link">Conócenos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="explorador" class="nav-link">Exploración</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="juez.html" class="dropdown-item">Juez</a></li>
-                    </ul>
+                    <a href="#faq" class="nav-link">Preguntas Frecuentes</a>
                 </li>
                 <li class="nav-item">
-                    <a href="foros.html" class="nav-link">Foros</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="foro.html" class="dropdown-item">Foro</a></li>
-                    </ul>
+                    <a href="#privacidad" class="nav-link">Política de Privacidad</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contacto" class="nav-link">Contacto</a>
                 </li>
             </ul>
         </div>
@@ -566,11 +547,9 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Estamos aquí para resolver conflictos</h1>
-            <p class="eslogan">El primer paso es encontrarnos y reconocernos</p>
-            <p class="descripcion">Proyecto dedicado a la democratización de la justicia en México, comenzando por el libre tránsito de la información en pos de la discusión pública de los temas que nos atañen a todos y todas.</p>
-            <a href="acceso.html" class="btn btn-primary">
-                Registro para abogados
+            <h1>Conoce y evalúa a las y los aspirantes a Juez</h1>
+            <a href="explorador.html" class="btn btn-primary">
+                ¡Vota aquí!
                 <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
             </a>
         </div>
@@ -580,33 +559,33 @@
     <section class="section benefits" id="beneficios">
         <div class="container">
             <div class="section-title">
-                <h2>Beneficios Clave</h2>
-                <p>Valores fundamentales de nuestra plataforma</p>
+                <h2>Nuestro Enfoque</h2>
+                <p>Conoce cómo contribuimos a la democracia judicial</p>
             </div>
             
             <div class="benefits-grid">
                 <div class="glass-card benefit-card floating" style="animation-delay: 0s;">
                     <div class="benefit-icon">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3>Transparencia Judicial</h3>
-                    <p>Acceso abierto a información verificable del sistema judicial con datos actualizados y confiables.</p>
+                    <h3>Antes que nada: ¿quiénes son?</h3>
+                    <p>El tema primordial de la elección popular de jueces es que ni sabemos quienes son, ni son parte de partidos políticos. ¡Lo primero es conocerlos!</p>
                 </div>
                 
                 <div class="glass-card benefit-card floating" style="animation-delay: 0.2s;">
                     <div class="benefit-icon">
-                        <i class="fas fa-hands-helping"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <h3>Oportunidad de Cambio</h3>
-                    <p>Contribuye activamente a mejorar el sistema legal mexicano con tu experiencia profesional.</p>
+                    <h3>Lo central: Evaluar su desempeño</h3>
+                    <p>El objetivo primero de esta pagina es el evaluar a las y los candidatos a jueces mediante un sistema simple del 1 al 10. Que funcione bien y no haya interferencia de bots es nuestra meta.</p>
                 </div>
                 
                 <div class="glass-card benefit-card floating" style="animation-delay: 0.4s;">
                     <div class="benefit-icon">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fas fa-democrat"></i>
                     </div>
-                    <h3>Protección de Identidad</h3>
-                    <p>Sistema seguro que garantiza tu anonimato cuando lo requieras con tecnología de encriptación.</p>
+                    <h3>Bases sólidas para la democracia</h3>
+                    <p>Conociendo el balance de evaluaciones de una persona podemos darnos una idea de la persona que es. Al ser donde compartir nuestras opiniones, el objetivo es que nos sirva como ágora moderna.</p>
                 </div>
             </div>
         </div>
@@ -617,87 +596,80 @@
         <div class="container">
             <div class="section-title">
                 <h2>¿Cómo funciona?</h2>
-                <p>Un proceso simple y transparente</p>
+                <p>Participa en la evaluación de aspirantes a jueces</p>
             </div>
             
             <div class="steps-container">
                 <div class="steps-line"></div>
                 <div class="steps-grid">
                     <div class="glass-card step-card">
-                        <div class="step-number">1</div>
-                        <h3>Registro Verificado</h3>
-                        <p>Validación de credenciales profesionales mediante procesos seguros.</p>
+                        <div class="step-number"><i class="fas fa-check"></i></div>
+                        <h3>Proceso simple</h3>
+                        <p>Simplemente vota por las y los candidatos que conozcas para que el resto de personas podamos conocer tu opinión.</p>
                     </div>
                     
                     <div class="glass-card step-card">
-                        <div class="step-number">2</div>
-                        <h3>Evaluación Objetiva</h3>
-                        <p>Sistema de calificación con parámetros claros y medibles.</p>
-                    </div>
-                    
-                    <div class="glass-card step-card">
-                        <div class="step-number">3</div>
-                        <h3>Análisis de Datos</h3>
-                        <p>Procesamiento estadístico para garantizar representatividad.</p>
-                    </div>
-                    
-                    <div class="glass-card step-card">
-                        <div class="step-number">4</div>
-                        <h3>Resultados Públicos</h3>
-                        <p>Visualización clara y accesible para toda la ciudadanía.</p>
+                        <div class="step-number"><i class="fas fa-users"></i></div>
+                        <h3>Evaluación colectiva</h3>
+                        <p>Formémonos una idea entre todas y todos sobre quienes queremos que ocupen el puesto de Juez en nuestro país.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonios -->
-    <section class="section testimonials">
+    <!-- About Us Section -->
+    <section class="section about-us" id="conocenos">
         <div class="container">
             <div class="section-title">
-                <h2>Impacto Real</h2>
-                <p>Lo que dicen nuestros usuarios</p>
+                <h2>Conócenos</h2>
+                <p>Nuestra misión y visión</p>
             </div>
             
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        La herramienta que necesitábamos para la transformación judicial en México. Por primera vez tenemos datos confiables para tomar decisiones informadas.
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="María González">
-                        <div>
-                            <h4>María González</h4>
-                            <p>Abogada penalista</p>
-                        </div>
-                    </div>
+            <div class="about-content">
+                <p>Somos estudiantes de la UNAM muy preocupados por la democracia en nuestro país, que hemos decidido tomar acción.</p>
+                <p>Creemos firmemente en el poder de las comunidades organizadas para transformar las corruptas realidades estructurales que vivimos. Y entendemos que el primer e imprescindible paso es el libre desarrollo de la discusión pública en torno a los temas de relevancia general, que es, etimológicamente, la política.</p>
+                <p>Por eso hemos creado esta plataforma para la evaluación de las personas que ejercen el Poder Judicial de la República, y de quienes aspiran a este.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="section privacy" id="privacidad">
+        <div class="container">
+            <div class="section-title">
+                <h2>Política de Privacidad</h2>
+                <p>Tu seguridad y privacidad son importantes</p>
+            </div>
+            
+            <div class="privacy-grid">
+                <div class="glass-card">
+                    <h3>Términos y condiciones del servicio</h3>
+                    <p>Consulta nuestros términos de uso para entender cómo funciona la plataforma.</p>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        Como ciudadano, ahora puedo entender mejor el desempeño de los jueces y tomar decisiones más informadas sobre mis procesos legales.
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jorge Mendoza">
-                        <div>
-                            <h4>Jorge Mendoza</h4>
-                            <p>Usuario frecuente</p>
-                        </div>
-                    </div>
+                <div class="glass-card">
+                    <h3>Aviso de política de privacidad</h3>
+                    <p>Conoce cómo protegemos y utilizamos tus datos personales.</p>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        La transparencia que ofrece esta plataforma está cambiando la forma en que los profesionales del derecho nos relacionamos con el sistema judicial.
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Torres">
-                        <div>
-                            <h4>Ana Torres</h4>
-                            <p>Especialista en derecho civil</p>
-                        </div>
-                    </div>
+                <div class="glass-card">
+                    <h3>Aviso de uso de datos personales</h3>
+                    <p>Información detallada sobre el tratamiento de datos personales.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto</h2>
+                <p>Estamos aquí para responder tus preguntas</p>
+            </div>
+            
+            <div class="glass-card" style="text-align: center; padding: 3rem;">
+                <h3>Para establecer contacto</h3>
+                <p>Envía un correo a <a href="mailto:contacto@misjueces.mx">contacto@misjueces.mx</a></p>
             </div>
         </div>
     </section>
@@ -708,21 +680,19 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">misjueces.mx</div>
-                    <p>Plataforma dedicada a la democratización de la evaluación del sistema judicial en México.</p>
+                    <p>Plataforma del pueblo para el pueblo dedicada a la democratización del Poder Judicial en México.</p>
                 </div>
                 
                 <div class="footer-links">
-                    <h3>Accesos</h3>
+                    <h3>Navegación</h3>
                     <ul>
-                        <li><a href="#ciudadania">Para ciudadanía</a></li>
-                        <li><a href="#abogados">Zona abogados</a></li>
-                        <li><a href="#jueces">Información para jueces</a></li>
-                        <li><a href="#blog">Blog jurídico</a></li>
+                        <li><a href="acceso.html">Ingreso</a></li>
+                        <li><a href="explorador.html">Exploración</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-links">
-                    <h3>Legal</h3>
+                    <h3>Legales</h3>
                     <ul>
                         <li><a href="#terminos">Términos y condiciones</a></li>
                         <li><a href="#privacidad">Política de privacidad</a></li>
