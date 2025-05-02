@@ -6,6 +6,7 @@
     <title>misjueces.mx - Evaluación de Aspirantes a Juez</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://github.com/viclunap6/observatoriojudicial1.0/raw/main/graphical%20resources/ChatGPT%20Image%2030%20abr%202025%2C%2017_01_03.png">
     <style>
         /* Sistema de diseño mejorado */
         :root {
@@ -68,6 +69,7 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
 
         .logo {
@@ -76,11 +78,19 @@
             font-weight: 700;
             color: white;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 30px;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         .nav-item {
@@ -306,23 +316,8 @@
         .benefit-card {
             display: flex;
             flex-direction: column;
-            align-items: center;
             text-align: center;
-            padding: 2.5rem 2rem;
-        }
-
-        .benefit-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-teal) 0%, #34a0a4 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: white;
-            font-size: 1.8rem;
-            box-shadow: 0 10px 20px rgba(42, 157, 143, 0.2);
+            padding: 2rem;
         }
 
         .benefit-card h3 {
@@ -353,7 +348,7 @@
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            gap: 2rem;
             position: relative;
             z-index: 2;
         }
@@ -406,35 +401,52 @@
 
         .privacy-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .privacy-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem !important;
         }
 
         /* Footer */
         footer {
             background: var(--deep-teal);
             color: var(--text-light);
-            padding: 4rem 0 2rem;
+            padding: 3rem 0 1.5rem;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-about {
+            padding-right: 2rem;
         }
 
         .footer-logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: white;
         }
 
         .footer-links h3 {
             font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--primary-teal);
         }
 
@@ -443,7 +455,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .footer-links a {
@@ -458,14 +470,14 @@
 
         .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .social-icons {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         .social-icons a {
@@ -478,17 +490,13 @@
             color: var(--primary-teal);
         }
 
-        /* Efectos y animaciones */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
         /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             :root {
                 --h1-size: 2.5rem;
@@ -509,9 +517,55 @@
                 display: none;
             }
 
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
             /* Navigation responsive */
             .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: var(--deep-teal);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1rem 0;
+            }
+
+            .hamburger {
+                display: block;
+                cursor: pointer;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger {
                 display: none;
+            }
+        }
+
+        /* Hamburger menu styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
             }
         }
     </style>
@@ -520,8 +574,14 @@
     <!-- Header Navigation -->
     <header class="header">
         <div class="nav-container">
-            <a href="#" class="logo">misjueces.mx</a>
-            <ul class="nav-menu">
+            <a href="#" class="logo">
+                <img src="https://github.com/viclunap6/observatoriojudicial1.0/raw/main/graphical%20resources/ChatGPT%20Image%2030%20abr%202025%2C%2017_01_03.png" alt="misjueces.mx logo">
+                misjueces.mx
+            </a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
                 <li class="nav-item">
                     <a href="acceso.html" class="nav-link">Ingresa</a>
                 </li>
@@ -547,9 +607,10 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Conoce y evalúa a las y los aspirantes a Juez</h1>
+            <h1>Tu Voz Define la Justicia</h1>
+            <p class="eslogan">Evalúa y conoce a jueces, magistrados y aspirantes en una plataforma transparente y colaborativa.</p>
             <a href="explorador.html" class="btn btn-primary">
-                ¡Vota aquí!
+                ¡Participa!
                 <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
             </a>
         </div>
@@ -559,31 +620,21 @@
     <section class="section benefits" id="beneficios">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestro Enfoque</h2>
-                <p>Conoce cómo contribuimos a la democracia judicial</p>
+                <h2>¡Involúcrate!</h2>
             </div>
             
             <div class="benefits-grid">
-                <div class="glass-card benefit-card floating" style="animation-delay: 0s;">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
+                <div class="glass-card benefit-card">
                     <h3>Antes que nada: ¿quiénes son?</h3>
                     <p>El tema primordial de la elección popular de jueces es que ni sabemos quienes son, ni son parte de partidos políticos. ¡Lo primero es conocerlos!</p>
                 </div>
                 
-                <div class="glass-card benefit-card floating" style="animation-delay: 0.2s;">
-                    <div class="benefit-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
+                <div class="glass-card benefit-card">
                     <h3>Lo central: Evaluar su desempeño</h3>
                     <p>El objetivo primero de esta pagina es el evaluar a las y los candidatos a jueces mediante un sistema simple del 1 al 10. Que funcione bien y no haya interferencia de bots es nuestra meta.</p>
                 </div>
                 
-                <div class="glass-card benefit-card floating" style="animation-delay: 0.4s;">
-                    <div class="benefit-icon">
-                        <i class="fas fa-democrat"></i>
-                    </div>
+                <div class="glass-card benefit-card">
                     <h3>Bases sólidas para la democracia</h3>
                     <p>Conociendo el balance de evaluaciones de una persona podemos darnos una idea de la persona que es. Al ser donde compartir nuestras opiniones, el objetivo es que nos sirva como ágora moderna.</p>
                 </div>
@@ -596,22 +647,33 @@
         <div class="container">
             <div class="section-title">
                 <h2>¿Cómo funciona?</h2>
-                <p>Participa en la evaluación de aspirantes a jueces</p>
             </div>
             
             <div class="steps-container">
                 <div class="steps-line"></div>
                 <div class="steps-grid">
                     <div class="glass-card step-card">
-                        <div class="step-number"><i class="fas fa-check"></i></div>
-                        <h3>Proceso simple</h3>
-                        <p>Simplemente vota por las y los candidatos que conozcas para que el resto de personas podamos conocer tu opinión.</p>
+                        <div class="step-number">1</div>
+                        <h3>Registro</h3>
+                        <p>Ingresa en la plataforma y acredita tu identidad para evitar polizones a bordo.</p>
                     </div>
                     
                     <div class="glass-card step-card">
-                        <div class="step-number"><i class="fas fa-users"></i></div>
-                        <h3>Evaluación colectiva</h3>
-                        <p>Formémonos una idea entre todas y todos sobre quienes queremos que ocupen el puesto de Juez en nuestro país.</p>
+                        <div class="step-number">2</div>
+                        <h3>Califica</h3>
+                        <p>Evalúa a las personas que conoces de acuerdo con tu experiencia tratándoles.</p>
+                    </div>
+                    
+                    <div class="glass-card step-card">
+                        <div class="step-number">3</div>
+                        <h3>Conoce</h3>
+                        <p>Observa como el promedio de calificaciones de esa persona cambia con tu voto.</p>
+                    </div>
+                    
+                    <div class="glass-card step-card">
+                        <div class="step-number">4</div>
+                        <h3>Infórmate</h3>
+                        <p>Explora, indaga y conoce a las demás personas que aspiran al Poder Judicial.</p>
                     </div>
                 </div>
             </div>
@@ -623,13 +685,10 @@
         <div class="container">
             <div class="section-title">
                 <h2>Conócenos</h2>
-                <p>Nuestra misión y visión</p>
             </div>
             
             <div class="about-content">
-                <p>Somos estudiantes de la UNAM muy preocupados por la democracia en nuestro país, que hemos decidido tomar acción.</p>
-                <p>Creemos firmemente en el poder de las comunidades organizadas para transformar las corruptas realidades estructurales que vivimos. Y entendemos que el primer e imprescindible paso es el libre desarrollo de la discusión pública en torno a los temas de relevancia general, que es, etimológicamente, la política.</p>
-                <p>Por eso hemos creado esta plataforma para la evaluación de las personas que ejercen el Poder Judicial de la República, y de quienes aspiran a este.</p>
+                <p>Somos estudiantes de la UNAM muy preocupados por la democracia en nuestro país, que hemos decidido tomar acción. Creemos firmemente en el poder de las comunidades organizadas para transformar las corruptas realidades estructurales que vivimos. Y entendemos que el primer e imprescindible paso es el libre desarrollo de la discusión pública en torno a los temas de relevancia general, que es, etimológicamente, la política. Por eso hemos creado esta plataforma para la evaluación de las personas que ejercen el Poder Judicial de la República, y de quienes aspiran a este.</p>
             </div>
         </div>
     </section>
@@ -643,15 +702,15 @@
             </div>
             
             <div class="privacy-grid">
-                <div class="glass-card">
+                <div class="glass-card privacy-card">
                     <h3>Términos y condiciones del servicio</h3>
                     <p>Consulta nuestros términos de uso para entender cómo funciona la plataforma.</p>
                 </div>
-                <div class="glass-card">
+                <div class="glass-card privacy-card">
                     <h3>Aviso de política de privacidad</h3>
                     <p>Conoce cómo protegemos y utilizamos tus datos personales.</p>
                 </div>
-                <div class="glass-card">
+                <div class="glass-card privacy-card">
                     <h3>Aviso de uso de datos personales</h3>
                     <p>Información detallada sobre el tratamiento de datos personales.</p>
                 </div>
@@ -667,7 +726,7 @@
                 <p>Estamos aquí para responder tus preguntas</p>
             </div>
             
-            <div class="glass-card" style="text-align: center; padding: 3rem;">
+            <div class="glass-card contact-card">
                 <h3>Para establecer contacto</h3>
                 <p>Envía un correo a <a href="mailto:contacto@misjueces.mx">contacto@misjueces.mx</a></p>
             </div>
@@ -717,9 +776,23 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 misjueces.mx - Todos los derechos reservados</p>
+                <p>&copy; 2025 misjueces.mx - Todos los derechos reservados</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Hamburger menu functionality
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
