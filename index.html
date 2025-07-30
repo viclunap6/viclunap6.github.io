@@ -1,942 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>misjueces.mx - Evaluación de Aspirantes a Juez</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        />
-        <link
-            rel="icon"
-            href="https://github.com/viclunap6/observatoriojudicial1.0/raw/main/graphical%20resources/ChatGPT%20Image%2030%20abr%202025%2C%2017_01_03.png"
-        />
-        <style>
-            /* Sistema de diseño mejorado */
-            :root {
-                --primary-teal: #2a9d8f;
-                --deep-teal: #264653;
-                --light-teal: #e9f5ef;
-                --glass-white: rgba(255, 255, 255, 0.85);
-                --glass-border: rgba(255, 255, 255, 0.3);
-                --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-                --text-dark: #2b2d42;
-                --text-light: #f8f9fa;
-
-                --h1-size: 3rem;
-                --h2-size: 2.25rem;
-                --h3-size: 1.75rem;
-                --body-size: 1.1rem;
-                --caption-size: 0.9rem;
-
-                --border-radius: 16px;
-                --spacing-unit: 8px;
-            }
-
-            /* Reset y estilos base */
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
-                font-family: "Montserrat", sans-serif;
-                color: var(--text-dark);
-                background: linear-gradient(
-                    135deg,
-                    var(--light-teal) 0%,
-                    #ffffff 100%
-                );
-                line-height: 1.7;
-                overflow-x: hidden;
-            }
-
-            h1,
-            h2,
-            h3 {
-                font-family: "Playfair Display", serif;
-                font-weight: 700;
-                line-height: 1.3;
-            }
-
-            /* Header Navigation */
-            .header {
-                background: var(--deep-teal);
-                color: white;
-                padding: 1rem 0;
-                position: fixed;
-                width: 100%;
-                top: 0;
-                z-index: 1000;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 90%;
-                max-width: 1200px;
-                margin: 0 auto;
-                position: relative;
-            }
-
-            .logo {
-                font-family: "Playfair Display", serif;
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: white;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .logo img {
-                height: 30px;
-            }
-
-            .nav-menu {
-                display: flex;
-                list-style: none;
-                align-items: center;
-            }
-
-            .nav-item {
-                position: relative;
-                margin-left: 1.5rem;
-            }
-
-            .nav-link {
-                color: white;
-                text-decoration: none;
-                font-weight: 500;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                transition: all 0.3s ease;
-            }
-
-            .nav-link:hover {
-                background: rgba(255, 255, 255, 0.1);
-            }
-
-            .dropdown-menu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background: white;
-                border-radius: var(--border-radius);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                padding: 0.5rem 0;
-                min-width: 200px;
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                z-index: 1001;
-            }
-
-            .dropdown-item {
-                display: block;
-                padding: 0.5rem 1rem;
-                color: var(--text-dark);
-                text-decoration: none;
-                transition: all 0.2s ease;
-            }
-
-            .dropdown-item:hover {
-                background: var(--light-teal);
-                color: var(--primary-teal);
-            }
-
-            .nav-item:hover .dropdown-menu {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            /* Utilidades */
-            .container {
-                width: 90%;
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 var(--spacing-unit);
-            }
-
-            .section {
-                padding: 6rem 0;
-                position: relative;
-            }
-
-            .glass-card {
-                background: var(--glass-white);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid var(--glass-border);
-                border-radius: var(--border-radius);
-                box-shadow: var(--glass-shadow);
-                padding: 2.5rem;
-                transition:
-                    transform 0.3s ease,
-                    box-shadow 0.3s ease;
-            }
-
-            .glass-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
-            }
-
-            .btn {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding: 1rem 2.5rem;
-                border-radius: 50px;
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-                position: relative;
-                overflow: hidden;
-                z-index: 1;
-                border: none;
-                cursor: pointer;
-            }
-
-            .btn-primary {
-                background: var(--primary-teal);
-                color: white;
-                box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
-            }
-
-            .btn-primary:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 25px rgba(42, 157, 143, 0.4);
-            }
-
-            .btn-primary::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(
-                    to right,
-                    var(--primary-teal) 0%,
-                    #34a0a4 100%
-                );
-                z-index: -1;
-                transition: opacity 0.4s ease;
-                opacity: 0;
-            }
-
-            .btn-primary:hover::after {
-                opacity: 1;
-            }
-
-            .section-title {
-                text-align: center;
-                margin-bottom: 4rem;
-                position: relative;
-            }
-
-            .section-title::after {
-                content: "";
-                display: block;
-                width: 80px;
-                height: 4px;
-                background: var(--primary-teal);
-                margin: 1.5rem auto 0;
-                border-radius: 2px;
-            }
-
-            /* Hero Section*/
-            .hero {
-                min-height: 90vh;
-                display: flex;
-                align-items: center;
-                position: relative;
-                overflow: hidden;
-                background: linear-gradient(
-                    135deg,
-                    rgba(233, 245, 239, 0.9) 0%,
-                    rgba(255, 255, 255, 0.7) 100%
-                );
-                margin-top: 70px; /* Para compensar el header fijo */
-            }
-
-            .hero::before {
-                content: "";
-                position: absolute;
-                top: -50%;
-                right: -50%;
-                width: 100%;
-                height: 200%;
-                background: radial-gradient(
-                    circle,
-                    rgba(42, 157, 143, 0.08) 0%,
-                    transparent 70%
-                );
-                z-index: 0;
-            }
-
-            .hero-content {
-                position: relative;
-                z-index: 2;
-                max-width: 800px;
-                margin: 0 auto;
-                text-align: center;
-                padding: 3rem 2rem;
-            }
-
-            .hero h1 {
-                font-size: var(--h1-size);
-                color: var(--deep-teal);
-                margin-bottom: 1.5rem;
-                letter-spacing: -0.5px;
-            }
-
-            .hero .eslogan {
-                font-size: 1.4rem;
-                font-weight: 400;
-                color: var(--text-dark);
-                margin-bottom: 2.5rem;
-                opacity: 0.9;
-            }
-
-            .hero .descripcion {
-                font-size: var(--body-size);
-                max-width: 700px;
-                margin: 0 auto 3rem;
-                opacity: 0.85;
-                line-height: 1.8;
-            }
-
-            /* Sección Beneficios - Estilo Premium */
-            .benefits {
-                position: relative;
-            }
-
-            .benefits::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%232a9d8f" opacity="0.03" d="M0,0 L100,0 L100,100 Q50,80 0,100 L0,0 Z"></path></svg>');
-                background-size: 100% auto;
-                background-repeat: no-repeat;
-                background-position: bottom center;
-                z-index: -1;
-            }
-
-            .benefits-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 2.5rem;
-                margin-top: 3rem;
-            }
-
-            .benefit-card {
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-                padding: 2rem;
-            }
-
-            .benefit-card h3 {
-                font-size: var(--h3-size);
-                margin-bottom: 1rem;
-                color: var(--deep-teal);
-            }
-
-            /* Sección Funcionamiento */
-            .how-it-works {
-                background: linear-gradient(
-                    to bottom,
-                    #ffffff 0%,
-                    var(--light-teal) 100%
-                );
-            }
-
-            .steps-container {
-                position: relative;
-            }
-
-            .steps-line {
-                position: absolute;
-                top: 120px;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(
-                    to right,
-                    transparent 0%,
-                    var(--primary-teal) 50%,
-                    transparent 100%
-                );
-                z-index: 1;
-            }
-
-            .steps-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 2rem;
-                position: relative;
-                z-index: 2;
-            }
-
-            .step-card {
-                text-align: center;
-                position: relative;
-            }
-
-            .step-number {
-                width: 60px;
-                height: 60px;
-                background: white;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 1.5rem;
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: var(--primary-teal);
-                border: 2px solid var(--primary-teal);
-                box-shadow: 0 5px 15px rgba(42, 157, 143, 0.2);
-            }
-
-            /* About Us Section */
-            .about-us {
-                background: linear-gradient(
-                    135deg,
-                    var(--deep-teal) 0%,
-                    #1e3a5f 100%
-                );
-                color: var(--text-light);
-            }
-
-            .about-us .section-title {
-                color: white;
-            }
-
-            .about-us .section-title::after {
-                background: var(--primary-teal);
-            }
-
-            .about-content {
-                max-width: 800px;
-                margin: 0 auto;
-                text-align: center;
-            }
-
-            /* Privacy Section */
-            .privacy {
-                background: var(--light-teal);
-            }
-
-            .privacy-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
-            }
-
-            .privacy-card {
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* Contact Section */
-            .contact-card {
-                max-width: 500px;
-                margin: 0 auto;
-                padding: 2rem !important;
-            }
-
-            /* Footer */
-            footer {
-                background: var(--deep-teal);
-                color: var(--text-light);
-                padding: 3rem 0 1.5rem;
-            }
-
-            .footer-content {
-                display: grid;
-                grid-template-columns: 2fr 1fr 1fr 1fr;
-                gap: 2rem;
-                margin-bottom: 2rem;
-            }
-
-            .footer-about {
-                padding-right: 2rem;
-            }
-
-            .footer-logo {
-                font-family: "Playfair Display", serif;
-                font-size: 1.8rem;
-                font-weight: 700;
-                margin-bottom: 1rem;
-                color: white;
-            }
-
-            .footer-links h3 {
-                font-size: 1.2rem;
-                margin-bottom: 1rem;
-                color: var(--primary-teal);
-            }
-
-            .footer-links ul {
-                list-style: none;
-            }
-
-            .footer-links li {
-                margin-bottom: 0.5rem;
-            }
-
-            .footer-links a {
-                color: rgba(255, 255, 255, 0.8);
-                text-decoration: none;
-                transition: color 0.3s ease;
-            }
-
-            .footer-links a:hover {
-                color: var(--primary-teal);
-            }
-
-            .footer-bottom {
-                text-align: center;
-                padding-top: 1.5rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .social-icons {
-                display: flex;
-                gap: 1rem;
-                margin-top: 0.5rem;
-            }
-
-            .social-icons a {
-                color: white;
-                font-size: 1.2rem;
-                transition: color 0.3s ease;
-            }
-
-            .social-icons a:hover {
-                color: var(--primary-teal);
-            }
-
-            /* Responsive */
-            @media (max-width: 1024px) {
-                .footer-content {
-                    grid-template-columns: 1fr 1fr;
-                }
-            }
-
-            @media (max-width: 768px) {
-                :root {
-                    --h1-size: 2.5rem;
-                    --h2-size: 2rem;
-                    --h3-size: 1.5rem;
-                }
-
-                .section {
-                    padding: 4rem 0;
-                }
-
-                .hero {
-                    min-height: auto;
-                    padding: 6rem 0;
-                }
-
-                .steps-line {
-                    display: none;
-                }
-
-                .footer-content {
-                    grid-template-columns: 1fr;
-                }
-
-                /* Navigation responsive */
-                .nav-menu {
-                    position: fixed;
-                    top: 70px;
-                    left: -100%;
-                    width: 80%;
-                    height: calc(100vh - 70px);
-                    background: var(--deep-teal);
-                    flex-direction: column;
-                    align-items: center;
-                    padding: 2rem 0;
-                    transition: left 0.3s ease;
-                }
-
-                .nav-menu.active {
-                    left: 0;
-                }
-
-                .nav-item {
-                    margin: 1rem 0;
-                }
-
-                .hamburger {
-                    display: block;
-                    cursor: pointer;
-                    font-size: 1.5rem;
-                }
-            }
-
-            @media (min-width: 769px) {
-                .hamburger {
-                    display: none;
-                }
-            }
-
-            /* Hamburger menu styles */
-            .hamburger {
-                display: none;
-                cursor: pointer;
-                padding: 0.5rem;
-            }
-
-            @media (max-width: 768px) {
-                .hamburger {
-                    display: block;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <!-- Header Navigation -->
-        <header class="header">
-            <div class="nav-container">
-                <a href="#" class="logo">
-                    <img
-                        src="https://github.com/viclunap6/observatoriojudicial1.0/raw/main/graphical%20resources/ChatGPT%20Image%2030%20abr%202025%2C%2017_01_03.png"
-                        alt="misjueces.mx logo"
-                    />
-                    misjueces.mx
-                </a>
-                <div class="hamburger" id="hamburger">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul class="nav-menu" id="navMenu">
-                    <li class="nav-item">
-                        <a href="acceso.html" class="nav-link">Ingresa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="explorador.html" class="nav-link">Explora</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#privacidad" class="nav-link">Privacidad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#foros" class="nav-link">Foros</a>
-                    </li>
-                </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despacho Jurídico | Expertos en Derecho</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Despacho Jurídico</h1>
             </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>
-                    Observatorio Ciudadano<br />
-                    de la Justicia
-                </h1>
-                <p class="eslogan">
-                    Califica el desempeño de jueces y aspirantes para<br />
-                    construir un Poder Judicial más confiable.
-                </p>
-                <a href="explorador.html" class="btn btn-primary">
-                    ¡Participa!
-                    <i class="fas fa-arrow-right" style="margin-left: 10px"></i>
-                </a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><button id="open-about-modal">Quiénes Somos</button></li>
+                <li><button id="open-appointment-modal">Agendar Cita</button></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
             </div>
-        </section>
+        </nav>
+    </header>
 
-        <!-- Sección Beneficios -->
-        <section class="section benefits" id="beneficios">
-            <div class="container">
-                <div class="section-title">
-                    <h2>¡Involúcrate!</h2>
-                </div>
+    <!-- Sección Hero (Inicio) -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h2>Expertos en Soluciones Legales</h2>
+            <p>Protegiendo tus derechos con profesionalismo y ética.</p>
+            <a href="#contacto" class="btn">Contáctanos</a>
+        </div>
+    </section>
 
-                <div class="benefits-grid">
-                    <div class="glass-card benefit-card">
-                        <h3>
-                            Antes que nada:<br />
-                            ¿quiénes son?
-                        </h3>
-                        <p>
-                            El tema primordial de la elección popular de jueces
-                            es que ni sabemos quienes son, ni son parte de
-                            partidos políticos. ¡Lo primero es conocerlos!
-                        </p>
-                    </div>
-
-                    <div class="glass-card benefit-card">
-                        <h3>
-                            Lo central:<br />
-                            Evaluar su desempeño
-                        </h3>
-                        <p>
-                            El objetivo primero de esta pagina es el evaluar a
-                            las y los candidatos a jueces mediante un sistema
-                            simple del 1 al 10. Que funcione bien y no haya
-                            interferencia de bots es nuestra meta.
-                        </p>
-                    </div>
-
-                    <div class="glass-card benefit-card">
-                        <h3>
-                            Bases sólidas<br />
-                            para la democracia
-                        </h3>
-                        <p>
-                            Conociendo el balance de evaluaciones de una persona
-                            podemos darnos una idea de la persona que es. Al ser
-                            donde compartir nuestras opiniones, el objetivo es
-                            que nos sirva como ágora moderna.
-                        </p>
-                    </div>
-                </div>
+    <!-- Sección Servicios -->
+    <section id="servicios" class="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Derecho Civil</h3>
+                <p>Contratos, sucesiones, propiedad intelectual.</p>
             </div>
-        </section>
-
-        <!-- Sección Funcionamiento -->
-        <section class="section how-it-works" id="funcionamiento">
-            <div class="container">
-                <div class="section-title">
-                    <h2>¿Cómo funciona?</h2>
-                </div>
-
-                <div class="steps-container">
-                    <div class="steps-line"></div>
-                    <div class="steps-grid">
-                        <div class="glass-card step-card">
-                            <div class="step-number">1</div>
-                            <h3>Registro</h3>
-                            <p>
-                                Ingresa en la plataforma y acredita tu identidad
-                                para evitar polizones a bordo.
-                            </p>
-                        </div>
-
-                        <div class="glass-card step-card">
-                            <div class="step-number">2</div>
-                            <h3>Califica</h3>
-                            <p>
-                                Evalúa a las personas que conoces de acuerdo con
-                                tu experiencia tratándoles.
-                            </p>
-                        </div>
-
-                        <div class="glass-card step-card">
-                            <div class="step-number">3</div>
-                            <h3>Conoce</h3>
-                            <p>
-                                Observa cómo el promedio de calificaciones de
-                                esa persona cambia con tu voto.
-                            </p>
-                        </div>
-
-                        <div class="glass-card step-card">
-                            <div class="step-number">4</div>
-                            <h3>Infórmate</h3>
-                            <p>
-                                Explora, indaga y conoce a las demás personas
-                                que aspiran al Poder Judicial.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="service-card">
+                <i class="fas fa-gavel"></i>
+                <h3>Derecho Penal</h3>
+                <p>Defensa y asesoría en procesos penales.</p>
             </div>
-        </section>
-
-        <!-- About Us Section -->
-        <section class="section about-us" id="conocenos">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Conócenos</h2>
-                </div>
-
-                <div class="about-content">
-                    <p>
-                        Somos estudiantes universitarios muy preocupados por la
-                        democracia en nuestro país, que hemos decidido tomar
-                        acción. Creemos firmemente en el poder de las
-                        comunidades organizadas para transformar las corruptas
-                        realidades estructurales que vivimos. Y entendemos que
-                        el primer e imprescindible paso es el libre desarrollo
-                        de la discusión pública en torno a los temas de
-                        relevancia general, que es, etimológicamente, la
-                        política. Por eso hemos creado esta plataforma para la
-                        evaluación de las personas que ejercen el Poder Judicial
-                        de la República, y de quienes aspiran a este.
-                    </p>
-                </div>
+            <div class="service-card">
+                <i class="fas fa-briefcase"></i>
+                <h3>Derecho Laboral</h3>
+                <p>Despidos, demandas, negociaciones.</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Privacy Section -->
-        <section class="section privacy" id="privacidad">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Política de Privacidad</h2>
-                    <p>Tu seguridad y privacidad son importantes</p>
-                </div>
+    <!-- Sección Ubicación -->
+    <section id="ubicacion" class="location">
+        <h2>Dónde Nos Ubicamos</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.8882445525434!2d-99.1698386845268!3d19.42702074612139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3757c7f5a5%3A0x1a2d7b9e7a4e4f0!2sPalacio%20de%20Justicia!5e0!3m2!1ses!2smx!4v1620000000000!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
 
-                <div class="privacy-grid">
-                    <div class="glass-card privacy-card">
-                        <h3>Términos y condiciones del servicio</h3>
-                        <p>
-                            Consulta nuestros términos de uso para entender cómo
-                            funciona la plataforma.
-                        </p>
-                    </div>
-                    <div class="glass-card privacy-card">
-                        <h3>Aviso de política de privacidad</h3>
-                        <p>
-                            Conoce cómo protegemos y utilizamos tus datos
-                            personales.
-                        </p>
-                    </div>
-                    <div class="glass-card privacy-card">
-                        <h3>Aviso de uso de datos personales</h3>
-                        <p>
-                            Información detallada sobre el tratamiento de datos
-                            personales.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Sección Contacto -->
+    <section id="contacto" class="contact">
+        <h2>Contacto</h2>
+        <form>
+            <input type="text" placeholder="Nombre" required>
+            <input type="email" placeholder="Correo" required>
+            <textarea placeholder="Mensaje" required></textarea>
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+    </section>
 
-        <!-- Contact Section -->
-        <section class="section" id="contacto">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Contacto</h2>
-                    <p>Estamos aquí para responder tus preguntas</p>
-                </div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Despacho Jurídico. Todos los derechos reservados.</p>
+    </footer>
 
-                <div class="glass-card contact-card">
-                    <h3>Para establecer contacto</h3>
-                    <p>
-                        Envía un correo a
-                        <a href="mailto:contacto@misjueces.mx"
-                            >contacto@misjueces.mx</a
-                        >
-                    </p>
-                </div>
-            </div>
-        </section>
+    <!-- Modales -->
+    <!-- Modal "Quiénes Somos" -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Quiénes Somos</h2>
+            <p>Somos un despacho jurídico con más de 15 años de experiencia, comprometidos con la justicia y la defensa de nuestros clientes.</p>
+            <p>Equipo multidisciplinario especializado en diversas áreas del derecho.</p>
+        </div>
+    </div>
 
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-about">
-                        <div class="footer-logo">misjueces.mx</div>
-                        <p>
-                            Plataforma del pueblo para el pueblo dedicada a la
-                            democratización del Poder Judicial en México.
-                        </p>
-                    </div>
+    <!-- Modal "Agendar Cita" -->
+    <div id="appointment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Agenda tu Cita</h2>
+            <form>
+                <input type="text" placeholder="Nombre" required>
+                <input type="email" placeholder="Correo" required>
+                <input type="tel" placeholder="Teléfono" required>
+                <select required>
+                    <option value="" disabled selected>Selecciona un servicio</option>
+                    <option value="civil">Derecho Civil</option>
+                    <option value="penal">Derecho Penal</option>
+                    <option value="laboral">Derecho Laboral</option>
+                </select>
+                <input type="date" required>
+                <button type="submit" class="btn">Confirmar Cita</button>
+            </form>
+        </div>
+    </div>
 
-                    <div class="footer-links">
-                        <h3>Navegación</h3>
-                        <ul>
-                            <li><a href="acceso.html">Ingreso</a></li>
-                            <li><a href="explorador.html">Exploración</a></li>
-                            <li><a href="abogado.html">Abogados</a></li>
-                            <li>
-                                <a href="faqs.html">Preguntas frecuentes</a>
-                            </li>
-                            <li><a href="admin.html">Administración</a></li>
-                            <li><a href="foros.html">Foros</a></li>
-                            <li><a href="foro.html">Foro</a></li>
-                            <li><a href="recompensas.html">Recompensas</a></li>
-                            <li>
-                                <a href="recuperación.html">Recuperación</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-links">
-                        <h3>Legales</h3>
-                        <ul>
-                            <li>
-                                <a href="#terminos">Términos y condiciones</a>
-                            </li>
-                            <li>
-                                <a href="#privacidad">Política de privacidad</a>
-                            </li>
-                            <li><a href="#cookies">Política de cookies</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-links">
-                        <h3>Contacto</h3>
-                        <ul>
-                            <li>
-                                <a href="mailto:contacto@misjueces.mx"
-                                    >contacto@misjueces.mx</a
-                                >
-                            </li>
-                            <li>
-                                <a href="tel:+525555555555">+52 55 5555 5555</a>
-                            </li>
-                            <li>
-                                <div class="social-icons">
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-linkedin"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-facebook"></i
-                                    ></a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="footer-bottom">
-                    <p>
-                        &copy; 2025 misjueces.mx - Todos los derechos reservados
-                    </p>
-                </div>
-            </div>
-        </footer>
-
-        <script>
-            // Hamburger menu functionality
-            document
-                .getElementById("hamburger")
-                .addEventListener("click", function () {
-                    document
-                        .getElementById("navMenu")
-                        .classList.toggle("active");
-                });
-
-            // Close menu when clicking on a link
-            document.querySelectorAll(".nav-link").forEach((link) => {
-                link.addEventListener("click", function () {
-                    document
-                        .getElementById("navMenu")
-                        .classList.remove("active");
-                });
-            });
-        </script>
-    </body>
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
 </html>
