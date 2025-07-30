@@ -10,7 +10,6 @@
     --card-background: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.05);
     --modal-bg: rgba(253, 253, 253, 0.95);
-    --toggle-active-bg: #e0e0e0;
 }
 
 body.dark-mode {
@@ -21,7 +20,6 @@ body.dark-mode {
     --card-background: #2d3748;
     --shadow-color: rgba(0, 0, 0, 0.2);
     --modal-bg: rgba(26, 32, 44, 0.95);
-    --toggle-active-bg: #333333;
 }
 
 /* --- Estilos Generales y Layout --- */
@@ -164,7 +162,7 @@ body.dark-mode .moon-icon {
 /* --- Diseño de 2 Columnas (Servicios y Citas) --- */
 .two-column-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 3rem;
     align-items: flex-start;
 }
@@ -208,9 +206,13 @@ body.dark-mode .moon-icon {
     text-align: center;
     border-radius: 8px;
     margin-top: 1rem;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #map {
-    height: 300px;
+    height: 344px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
     margin-top: 1rem;
@@ -292,8 +294,9 @@ body.dark-mode .moon-icon {
 .modal-lg {
     max-width: 800px;
 }
+/* Modal de Servicio ahora es más pequeño */
 .modal-xl {
-    max-width: 90vw;
+    max-width: 1100px;
     max-height: 85vh;
     padding: 0;
 }
@@ -304,11 +307,11 @@ body.dark-mode .moon-icon {
     font-size: 2.5rem;
     color: var(--text-secondary);
     cursor: pointer;
-    z-index: 10;
+    z-index: 1001;
 }
 .modal-xl .close-button {
     position: fixed;
-} /* Para que no se pierda en el scroll */
+}
 
 /* Modal "Nosotros" y Píldoras del Equipo (Estilo Píldora Vertical) */
 .team-pills-container {
@@ -322,7 +325,7 @@ body.dark-mode .moon-icon {
     align-items: center;
     gap: 1rem;
     padding: 0.75rem;
-    border-radius: 8px;
+    border-radius: 35px;
     cursor: pointer;
     transition: background-color 0.2s ease;
     border: 1px solid transparent;
@@ -330,12 +333,13 @@ body.dark-mode .moon-icon {
 .team-pill:hover {
     background-color: var(--border-color);
 }
+/* IMAGEN DE PÍLDORA VERTICAL */
 .team-pill img {
     width: 60px;
     height: 90px;
     object-fit: cover;
     border-radius: 30px;
-} /* Píldora Vertical */
+}
 .team-pill strong {
     font-weight: 600;
     font-size: 1.1rem;
@@ -379,14 +383,14 @@ body.dark-mode .moon-icon {
 }
 
 /* Modal de Servicio Rediseñado */
-.service-modal-body {
+#service-modal-content {
     max-width: 800px;
     margin: 0 auto;
-    padding: 3rem 1rem;
+    padding: 3rem 1rem 5rem 1rem;
 }
 .service-modal-header {
     text-align: center;
-    padding-top: 3rem;
+    padding-top: 4rem;
     margin-bottom: 2rem;
 }
 .service-modal-header h2 {
@@ -428,4 +432,17 @@ body.dark-mode .moon-icon {
 }
 #service-team-container .team-pill {
     border: 1px solid var(--border-color);
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+    .service-list-column {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-right: 0;
+        padding-bottom: 2rem;
+    }
 }
