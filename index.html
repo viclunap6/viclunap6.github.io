@@ -1,121 +1,257 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Despacho Jurídico | Expertos en Derecho</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <!-- Barra de navegación -->
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>Despacho Jurídico</h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#ubicacion">Ubicación</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <li><button id="open-about-modal">Quiénes Somos</button></li>
-                <li><button id="open-appointment-modal">Agendar Cita</button></li>
-            </ul>
-            <div class="burger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nombre del Despacho | Asesoría Jurídica</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="main-container">
+            <aside class="left-panel">
+                <div class="top-controls">
+                    <button id="theme-toggle" class="theme-toggle">
+                        <span class="sun-icon"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line
+                                    x1="4.22"
+                                    y1="4.22"
+                                    x2="5.64"
+                                    y2="5.64"
+                                ></line>
+                                <line
+                                    x1="18.36"
+                                    y1="18.36"
+                                    x2="19.78"
+                                    y2="19.78"
+                                ></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line
+                                    x1="4.22"
+                                    y1="19.78"
+                                    x2="5.64"
+                                    y2="18.36"
+                                ></line>
+                                <line
+                                    x1="18.36"
+                                    y1="5.64"
+                                    x2="19.78"
+                                    y2="4.22"
+                                ></line></svg
+                        ></span>
+                        <span class="moon-icon"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                                ></path></svg
+                        ></span>
+                    </button>
+                </div>
 
-    <!-- Sección Hero (Inicio) -->
-    <section id="inicio" class="hero">
-        <div class="hero-content">
-            <h2>Expertos en Soluciones Legales</h2>
-            <p>Protegiendo tus derechos con profesionalismo y ética.</p>
-            <a href="#contacto" class="btn">Contáctanos</a>
+                <div class="bio-content">
+                    <div class="photo-pill-container">
+                        <img
+                            src="https://via.placeholder.com/100x140"
+                            alt="Logo del Despacho"
+                        />
+                    </div>
+                    <h1>Tu Despacho Jurídico</h1>
+                    <h2>Soluciones Legales, Confianza y Resultados</h2>
+                    <p class="summary">
+                        Somos una firma de abogados comprometida con la
+                        excelencia, la integridad y la defensa de tus derechos.
+                        Ofrecemos asesoría experta y representación legal en
+                        diversas áreas para proteger tus intereses.
+                    </p>
+                    <div class="contact-info">
+                        <div class="action-buttons">
+                            <button id="services-button" class="action-btn">
+                                Nuestros Servicios
+                            </button>
+                            <a
+                                href="mailto:contacto@tudespacho.com"
+                                class="action-btn"
+                                >Contáctanos</a
+                            >
+                        </div>
+                        <div class="icon-links">
+                            <a href="#" target="_blank" aria-label="LinkedIn"
+                                ><svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                                    /></svg
+                            ></a>
+                            <a href="#" target="_blank" aria-label="Twitter/X"
+                                ><svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                    />
+                                </svg>
+                                ></a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="right-panel">
+                <div
+                    class="project-item"
+                    data-image="https://via.placeholder.com/600x400/cccccc/ffffff?text=Derecho+Corporativo"
+                >
+                    <img
+                        src="https://via.placeholder.com/180x180/cccccc/ffffff?text=Corporativo"
+                        alt="Caso de Derecho Corporativo"
+                        class="project-thumbnail"
+                    />
+                    <div class="project-info">
+                        <h3>Asesoría a Empresas</h3>
+                        <p>
+                            Guiamos la constitución y operación de sociedades
+                            mercantiles, asegurando el cumplimiento normativo y
+                            la protección de sus intereses comerciales.
+                        </p>
+                        <div class="project-hashtags">
+                            <span data-service="corporativo"
+                                >#DerechoCorporativo</span
+                            >
+                            <span data-service="corporativo"
+                                >#FusionesYAdquisiciones</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="project-item"
+                    data-image="https://via.placeholder.com/600x400/cccccc/ffffff?text=Litigio+Civil"
+                >
+                    <img
+                        src="https://via.placeholder.com/180x180/cccccc/ffffff?text=Litigio"
+                        alt="Caso de Litigio Civil"
+                        class="project-thumbnail"
+                    />
+                    <div class="project-info">
+                        <h3>Resolución de Disputas</h3>
+                        <p>
+                            Representación experta en litigios civiles y
+                            mercantiles, defendiendo los derechos de nuestros
+                            clientes ante tribunales con estrategias sólidas y
+                            efectivas.
+                        </p>
+                        <div class="project-hashtags">
+                            <span data-service="litigio">#LitigioCivil</span>
+                            <span data-service="litigio"
+                                >#JuiciosMercantiles</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="project-item"
+                    data-image="https://via.placeholder.com/600x400/cccccc/ffffff?text=Derecho+Inmobiliario"
+                >
+                    <img
+                        src="https://via.placeholder.com/180x180/cccccc/ffffff?text=Inmobiliario"
+                        alt="Caso de Derecho Inmobiliario"
+                        class="project-thumbnail"
+                    />
+                    <div class="project-info">
+                        <h3>Gestión Inmobiliaria</h3>
+                        <p>
+                            Asesoría integral en la compra, venta y
+                            arrendamiento de propiedades, así como en la
+                            regularización de inmuebles y desarrollo de
+                            proyectos.
+                        </p>
+                        <div class="project-hashtags">
+                            <span data-service="inmobiliario"
+                                >#DerechoInmobiliario</span
+                            >
+                            <span data-service="inmobiliario">#Contratos</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-    </section>
 
-    <!-- Sección Servicios -->
-    <section id="servicios" class="services">
-        <h2>Nuestros Servicios</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-balance-scale"></i>
-                <h3>Derecho Civil</h3>
-                <p>Contratos, sucesiones, propiedad intelectual.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-gavel"></i>
-                <h3>Derecho Penal</h3>
-                <p>Defensa y asesoría en procesos penales.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-briefcase"></i>
-                <h3>Derecho Laboral</h3>
-                <p>Despidos, demandas, negociaciones.</p>
+        <div id="project-modal-overlay" class="modal-overlay">
+            <div class="modal-content">
+                <span id="project-close-button" class="close-button"
+                    >&times;</span
+                >
+                <h2 id="modal-title"></h2>
+                <p id="modal-description-project"></p>
+                <img id="modal-image" src="" alt="Imagen del caso de éxito" />
             </div>
         </div>
-    </section>
 
-    <!-- Sección Ubicación -->
-    <section id="ubicacion" class="location">
-        <h2>Dónde Nos Ubicamos</h2>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.8882445525434!2d-99.1698386845268!3d19.42702074612139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3757c7f5a5%3A0x1a2d7b9e7a4e4f0!2sPalacio%20de%20Justicia!5e0!3m2!1ses!2smx!4v1620000000000!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div id="services-modal-overlay" class="modal-overlay">
+            <div class="modal-content">
+                <span id="services-close-button" class="close-button"
+                    >&times;</span
+                >
+                <div id="services-list-container">
+                    <h2>Nuestros Servicios</h2>
+                    <ul class="services-list">
+                        <li data-service="corporativo">
+                            Derecho Corporativo y Mercantil
+                        </li>
+                        <li data-service="litigio">
+                            Litigio Civil y Mercantil
+                        </li>
+                        <li data-service="inmobiliario">
+                            Derecho Inmobiliario
+                        </li>
+                        <li data-service="administrativo">
+                            Derecho Administrativo
+                        </li>
+                        <li data-service="laboral">Derecho Laboral</li>
+                    </ul>
+                </div>
+                <div id="service-detail-container" style="display: none">
+                    <h2 id="service-detail-title"></h2>
+                    <p id="service-detail-description"></p>
+                    <h3>Casos de Éxito Relacionados</h3>
+                    <div id="service-gallery-thumbnails"></div>
+                    <button id="back-to-services" class="action-btn">
+                        &larr; Volver a Servicios
+                    </button>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <!-- Sección Contacto -->
-    <section id="contacto" class="contact">
-        <h2>Contacto</h2>
-        <form>
-            <input type="text" placeholder="Nombre" required>
-            <input type="email" placeholder="Correo" required>
-            <textarea placeholder="Mensaje" required></textarea>
-            <button type="submit" class="btn">Enviar</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2023 Despacho Jurídico. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- Modales -->
-    <!-- Modal "Quiénes Somos" -->
-    <div id="about-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Quiénes Somos</h2>
-            <p>Somos un despacho jurídico con más de 15 años de experiencia, comprometidos con la justicia y la defensa de nuestros clientes.</p>
-            <p>Equipo multidisciplinario especializado en diversas áreas del derecho.</p>
-        </div>
-    </div>
-
-    <!-- Modal "Agendar Cita" -->
-    <div id="appointment-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Agenda tu Cita</h2>
-            <form>
-                <input type="text" placeholder="Nombre" required>
-                <input type="email" placeholder="Correo" required>
-                <input type="tel" placeholder="Teléfono" required>
-                <select required>
-                    <option value="" disabled selected>Selecciona un servicio</option>
-                    <option value="civil">Derecho Civil</option>
-                    <option value="penal">Derecho Penal</option>
-                    <option value="laboral">Derecho Laboral</option>
-                </select>
-                <input type="date" required>
-                <button type="submit" class="btn">Confirmar Cita</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>

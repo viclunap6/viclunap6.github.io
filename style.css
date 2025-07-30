@@ -1,121 +1,433 @@
-/* Estilos generales */
+/* --- Variables de Color --- */
+:root {
+    --font-sans: "Inter", sans-serif;
+    --font-serif: "Lora", serif;
+    /* Paleta para un despacho jurídico */
+    --accent-color-vibrant: #b9975b; /* Un dorado elegante */
+    /* Tema Claro */
+    --background: #fdfdfd;
+    --text-primary: #1a202c; /* Negro suave */
+    --text-secondary: #4a5568; /* Gris oscuro */
+    --border-color: #e2e8f0;
+    --card-background: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --modal-bg: rgba(255, 255, 255, 0.9);
+    --toggle-active-bg: #e2e8f0;
+}
+
+body.dark-mode {
+    /* Tema Oscuro */
+    --background: #1a202c;
+    --text-primary: #f7fafc;
+    --text-secondary: #a0aec0;
+    --border-color: #2d3748;
+    --card-background: #2d3748;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --modal-bg: rgba(26, 32, 44, 0.9);
+    --toggle-active-bg: #4a5568;
+}
+
+/* --- Estilos Generales --- */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--text-secondary);
     margin: 0;
-    padding: 0;
-    color: #333;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
-
-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 1rem 0;
-    position: fixed;
+.main-container {
+    display: flex;
     width: 100%;
+    min-height: 100vh;
+}
+
+/* --- Panel Izquierdo con Fondo --- */
+.left-panel {
+    width: 45%;
+    max-width: 550px;
+    padding: 3rem 4rem;
+    position: sticky;
     top: 0;
-    z-index: 1000;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 1.5rem;
-}
-
-.nav-links a, .nav-links button {
-    color: white;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.burger {
-    display: none;
-    cursor: pointer;
-}
-
-/* Sección Hero */
-.hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/hero-bg.jpg');
-    background-size: cover;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    border-right: 1px solid var(--border-color);
+    text-align: right;
+    isolation: isolate;
+}
+.left-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/grey-sandbag.png");
+    background-attachment: fixed;
+    background-size: auto;
+    background-position: center;
+    opacity: 0.05;
+    z-index: -1;
+    transition:
+        opacity 0.3s ease,
+        filter 0.3s ease;
+}
+body.dark-mode .left-panel::before {
+    opacity: 0.1;
+    filter: invert(1);
+}
+
+/* --- Controles Superiores --- */
+.top-controls {
+    position: absolute;
+    top: 2.5rem;
+    left: 4rem;
+    right: 4rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+.theme-toggle {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: white;
+}
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-primary);
+}
+.moon-icon {
+    display: none;
+}
+body.dark-mode .sun-icon {
+    display: none;
+}
+body.dark-mode .moon-icon {
+    display: inline-block;
 }
 
-.hero-content h2 {
+/* --- Contenido Bio --- */
+.bio-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.photo-pill-container {
+    width: 100px;
+    height: 140px;
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--border-color);
+}
+.photo-pill-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.bio-content h1 {
     font-size: 3rem;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
 }
-
-.btn {
-    background-color: #e74c3c;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 5px;
+.bio-content h2 {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin: 0.5rem 0 1.5rem;
+    font-weight: 400;
+}
+.bio-content .summary {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 550px;
+    margin-bottom: 1.5rem;
+    border-top: none;
+    padding-top: 0;
+}
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.5rem;
+}
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+}
+.action-btn {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    background-color: var(--card-background);
     text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.action-btn:hover {
+    border-color: var(--accent-color-vibrant);
+    color: var(--accent-color-vibrant);
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+.icon-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+.icon-links a {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+.icon-links a:hover {
+    color: var(--accent-color-vibrant);
+}
+.icon-links svg {
+    width: 24px;
+    height: 24px;
 }
 
-.btn:hover {
-    background-color: #c0392b;
+/* --- Panel Derecho y Casos de Éxito --- */
+.right-panel {
+    width: 55%;
+    padding: 3rem 4rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.project-item {
+    display: flex;
+    align-items: stretch;
+    background-color: var(--card-background);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    height: 180px;
+    transition: all 0.3s ease;
+}
+.project-item:hover {
+    border-color: var(--accent-color-vibrant);
+    transform: scale(1.01);
+}
+.project-thumbnail {
+    width: 180px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+.project-item:hover .project-thumbnail {
+    transform: scale(1.05);
+}
+.project-info {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.project-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.project-info p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+    color: var(--text-secondary);
+}
+.project-hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+.project-hashtags span {
+    background-color: var(--background);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.project-hashtags span:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
-/* Modales */
-.modal {
+/* --- Modal --- */
+.modal-overlay {
     display: none;
     position: fixed;
-    z-index: 2000;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 10% auto;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
     padding: 2rem;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 5px;
-    position: relative;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
 }
-
-.close-modal {
+.modal-content {
+    position: relative;
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: var(--modal-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 2rem;
+}
+.modal-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+.close-button {
     position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 1.5rem;
+    top: 15px;
+    right: 25px;
+    font-size: 2.5rem;
+    color: var(--text-secondary);
     cursor: pointer;
 }
+#modal-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    border: 1px solid var(--border-color);
+}
 
-/* Responsive */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
+/* Modal de Servicios Específico */
+.services-list {
+    list-style-type: none;
+    padding: 0;
+}
+.services-list li {
+    font-size: 1.2rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.services-list li:hover {
+    color: var(--accent-color-vibrant);
+}
+#service-detail-description {
+    margin-bottom: 1.5rem;
+}
+#service-gallery-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+#service-gallery-thumbnails img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+#service-gallery-thumbnails img:hover {
+    transform: scale(1.05);
+}
+#back-to-services {
+    margin-top: 1.5rem;
+}
+
+/* --- Diseño Responsivo --- */
+@media (max-width: 1100px) {
+    .main-container {
+        flex-direction: column;
     }
-    .burger {
-        display: block;
+    .left-panel,
+    .right-panel {
+        width: 100%;
+        max-width: 100%;
+        position: static;
+        height: auto;
+        padding: 4rem 2rem 2rem;
+        text-align: center;
+    }
+    .left-panel {
+        border-right: none;
+        align-items: center;
+    }
+    .left-panel::before {
+        background-attachment: fixed;
+    }
+    .bio-content {
+        align-items: center;
+    }
+    .contact-info {
+        align-items: center;
+    }
+    .icon-links,
+    .action-buttons {
+        justify-content: center;
+    }
+    .top-controls {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background-color: var(--background);
+        z-index: 100;
+        justify-content: flex-end;
+    }
+    .project-item {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+    .project-thumbnail {
+        margin: 0 auto 1rem auto;
+        width: 100%;
+        height: 200px;
+    }
+    .project-info {
+        align-items: center;
     }
 }
