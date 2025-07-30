@@ -3,24 +3,23 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tu Despacho Jurídico | Expertos en Litigio y Corporativo</title>
+        <title>Luna, Herrera & Asociados | Estrategia Legal</title>
         <link rel="stylesheet" href="style.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;600&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:wght@400;600&display=swap"
             rel="stylesheet"
         />
     </head>
     <body>
         <header class="site-header">
             <div class="header-content">
-                <div class="logo">Tu Despacho Jurídico</div>
+                <button id="logo-button" class="logo-btn">LH&A</button>
                 <nav>
-                    <a href="#casos-exito">Casos de Éxito</a>
-                    <a href="#equipo">Nuestro Equipo</a>
-                    <a href="#servicios">Servicios</a>
-                    <a href="mailto:contacto@tudespacho.com">Contacto</a>
+                    <a href="#servicios">Áreas de Práctica</a>
+                    <a href="#agendar-cita">Agendar Cita</a>
+                    <a href="mailto:contacto@lhyasociados.com">Contacto</a>
                 </nav>
                 <button id="theme-toggle" class="theme-toggle">
                     <span class="sun-icon"
@@ -87,131 +86,143 @@
 
         <main class="site-content">
             <section class="hero">
-                <h1>Estrategia, Integridad y Resultados.</h1>
+                <h1>
+                    La intersección entre la ley y la estrategia de negocio.
+                </h1>
                 <p>
-                    Somos una firma de abogados dedicada a ofrecer soluciones
-                    legales precisas y efectivas. Navegamos la complejidad de la
-                    ley para defender tus intereses con determinación y
-                    excelencia profesional.
+                    Anticipamos escenarios, diseñamos defensas y construimos
+                    argumentos que protegen y maximizan el valor de nuestros
+                    clientes. Bienvenidos a la práctica legal concebida como un
+                    instrumento de precisión.
                 </p>
             </section>
 
-            <section id="casos-exito" class="content-section">
-                <h2>Casos de Éxito</h2>
-                <div class="cards-container">
-                    <div class="card" data-project-id="1">
-                        <img
-                            src="https://via.placeholder.com/400x250/cccccc/ffffff?text=Corporativo"
-                            alt="Imagen del caso"
-                            class="card-image"
-                        />
-                        <div class="card-content">
-                            <h3>Reestructuración Corporativa Exitosa</h3>
-                            <p>
-                                Asesoramos a un conglomerado internacional en la
-                                optimización de su estructura societaria,
-                                resultando en un ahorro fiscal del 20% y
-                                blindaje contra futuras contingencias.
-                            </p>
-                            <span class="card-tag">#DerechoCorporativo</span>
-                        </div>
+            <section id="servicios" class="content-section">
+                <h2>Áreas de Práctica</h2>
+                <div class="services-grid">
+                    <div class="service-card" data-service-id="familia">
+                        Derecho Familiar y Valoración Psicológica
                     </div>
-                    <div class="card" data-project-id="2">
-                        <img
-                            src="https://via.placeholder.com/400x250/cccccc/ffffff?text=Litigio"
-                            alt="Imagen del caso"
-                            class="card-image"
-                        />
-                        <div class="card-content">
-                            <h3>Laudo Favorable en Arbitraje Comercial</h3>
-                            <p>
-                                Obtuvimos un laudo millonario a favor de nuestro
-                                cliente en un complejo arbitraje sobre
-                                incumplimiento de contrato de construcción,
-                                sentando un precedente en la materia.
-                            </p>
-                            <span class="card-tag">#LitigioMercantil</span>
-                        </div>
+                    <div class="service-card" data-service-id="deudor">
+                        Defensa al Deudor y Contabilidad Patrimonial
+                    </div>
+                    <div class="service-card" data-service-id="mercantil">
+                        Derecho Mercantil y Análisis de Mercado
+                    </div>
+                    <div class="service-card" data-service-id="laboral">
+                        Derecho Laboral y Cumplimiento Corporativo
+                    </div>
+                    <div class="service-card" data-service-id="internacional">
+                        Comercio Internacional y Propiedad Intelectual
+                    </div>
+                    <div class="service-card" data-service-id="inmobiliario">
+                        Derecho Inmobiliario y Desarrollo de Proyectos
+                    </div>
+                    <div class="service-card" data-service-id="fiscal">
+                        Estrategia Fiscal y Litigio Administrativo
+                    </div>
+                    <div class="service-card" data-service-id="startup">
+                        Asesoría a Startups y Venture Capital
                     </div>
                 </div>
             </section>
 
-            <section id="equipo" class="content-section">
-                <h2>Nuestro Equipo</h2>
-                <ul class="team-list">
-                    <li data-member-id="1">Ana Sofía Paredes</li>
-                    <li data-member-id="2">Carlos Mendoza</li>
-                    <li data-member-id="3">Javier Benítez</li>
-                </ul>
-            </section>
-
-            <section id="servicios" class="content-section">
-                <h2>Servicios Legales</h2>
+            <section id="agendar-cita" class="content-section cta-section">
+                <h2>Iniciemos una Conversación</h2>
                 <p>
-                    Nuestra práctica se enfoca en ofrecer una asesoría legal
-                    completa y especializada. Haz clic para conocer más sobre
-                    nuestras áreas de experiencia.
+                    Nuestra primera consulta sirve para diagnosticar la
+                    situación y trazar un plan de acción. Agende una cita para
+                    discutir cómo podemos ayudarle a alcanzar sus objetivos.
                 </p>
-                <button id="services-button" class="action-btn">
-                    Explorar Áreas de Práctica
-                </button>
+                <a
+                    href="https://calendar.google.com/calendar/u/0/selfsched?sstoken=TU9VWVhDQlVSMFpGfGRlZmF1bHR8ZmU1YjYyZDYwY2FiY2JmMGEyY2NjY2ViYWM0Y2FkYmE"
+                    target="_blank"
+                    class="action-btn"
+                    >Agendar Videollamada</a
+                >
             </section>
         </main>
 
         <footer class="site-footer">
-            <div class="footer-content">
-                <p>
-                    © 2025 Tu Despacho Jurídico. Todos los derechos reservados.
-                </p>
-                <div class="icon-links">
-                    <a href="#" target="_blank" aria-label="LinkedIn"
-                        ><svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                            /></svg
-                    ></a>
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Luna, Herrera & Asociados</h4>
+                    <p>
+                        Firma legal dedicada a la prestación de servicios
+                        jurídicos de alta especialización. Nuestro compromiso es
+                        con la excelencia, la integridad y la generación de
+                        valor para nuestros clientes.
+                    </p>
                 </div>
+                <div class="footer-column">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="#servicios">Áreas de Práctica</a></li>
+                        <li>
+                            <a href="#" id="footer-nosotros-link">Nosotros</a>
+                        </li>
+                        <li><a href="#agendar-cita">Agendar Cita</a></li>
+                        <li><a href="#">Publicaciones</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Aviso de Privacidad</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Conflicto de Intereses</a></li>
+                        <li><a href="#">Política de Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>
+                        Av. Insurgentes Sur 123, Piso 10<br />
+                        Colonia Roma, Ciudad de México<br />
+                        <a href="mailto:contacto@lhyasociados.com"
+                            >contacto@lhyasociados.com</a
+                        ><br />
+                        T: +52 55 1234 5678
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>
+                    © 2025 Luna, Herrera & Asociados, S.C. Todos los derechos
+                    reservados. La información contenida en este sitio es solo
+                    para fines informativos y no constituye asesoría legal. La
+                    consulta de este sitio no crea una relación abogado-cliente.
+                </p>
             </div>
         </footer>
 
-        <div id="team-modal-overlay" class="modal-overlay">
-            <div class="modal-content">
+        <div id="nosotros-modal-overlay" class="modal-overlay">
+            <div class="modal-content modal-sm">
                 <span class="close-button">&times;</span>
-                <div id="team-modal-content" class="modal-body-grid">
-                    <div class="profile-pill">
-                        <img
-                            id="team-modal-image"
-                            src=""
-                            alt="Foto del abogado"
-                        />
-                    </div>
-                    <div class="profile-details">
-                        <h2 id="team-modal-name"></h2>
-                        <h3 id="team-modal-title"></h3>
-                        <div id="team-modal-tags" class="profile-tags"></div>
-                        <p id="team-modal-bio"></p>
-                        <a
-                            id="team-modal-linkedin"
-                            href="#"
-                            target="_blank"
-                            class="action-btn"
-                            >Perfil de LinkedIn</a
-                        >
-                    </div>
-                </div>
+                <h2>Luna, Herrera & Asociados</h2>
+                <div
+                    id="team-pills-container"
+                    class="team-pills-container"
+                ></div>
             </div>
         </div>
 
-        <div id="project-modal-overlay" class="modal-overlay">
-            <div class="modal-content">
+        <div id="team-profile-modal-overlay" class="modal-overlay">
+            <div class="modal-content modal-lg">
                 <span class="close-button">&times;</span>
-                <h2 id="project-modal-title"></h2>
-                <p id="project-modal-description"></p>
-                <img id="project-modal-image" src="" alt="Imagen del caso" />
+                <div id="team-profile-content" class="modal-body-grid"></div>
             </div>
         </div>
 
-        <div id="services-modal-overlay" class="modal-overlay"></div>
+        <div id="service-modal-overlay" class="modal-overlay modal-fullscreen">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div
+                    id="service-modal-content"
+                    class="service-modal-body"
+                ></div>
+            </div>
+        </div>
 
         <script src="script.js"></script>
     </body>
