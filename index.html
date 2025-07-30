@@ -5,6 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Luna, Herrera & Asociados | Estrategia Legal</title>
         <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -17,7 +23,7 @@
             <div class="header-content">
                 <button id="logo-button" class="logo-btn">LH&A</button>
                 <nav>
-                    <a href="#servicios">Áreas de Práctica</a>
+                    <a href="#servicios">Servicios</a>
                     <a href="#agendar-cita">Agendar Cita</a>
                     <a href="mailto:contacto@lhyasociados.com">Contacto</a>
                 </nav>
@@ -86,60 +92,80 @@
 
         <main class="site-content">
             <section class="hero">
-                <h1>
-                    La intersección entre la ley y la estrategia de negocio.
-                </h1>
+                <h1>Luna, Herrera & Asociados</h1>
                 <p>
-                    Anticipamos escenarios, diseñamos defensas y construimos
-                    argumentos que protegen y maximizan el valor de nuestros
-                    clientes. Bienvenidos a la práctica legal concebida como un
-                    instrumento de precisión.
+                    Somos una firma dedicada a la defensa de sus intereses.
+                    Construimos un entorno de tranquilidad y certeza jurídica
+                    para asegurar su bienestar y potenciar el desarrollo óptimo
+                    de sus proyectos personales y de negocio.
                 </p>
             </section>
 
             <section id="servicios" class="content-section">
-                <h2>Áreas de Práctica</h2>
-                <div class="services-grid">
-                    <div class="service-card" data-service-id="familia">
-                        Derecho Familiar y Valoración Psicológica
+                <h2>Servicios Jurídicos Especializados</h2>
+                <div class="two-column-layout">
+                    <div class="service-list-column">
+                        <ul class="service-list">
+                            <li data-service-id="familia">
+                                Derecho Familiar y Valoración Psicológica
+                            </li>
+                            <li data-service-id="deudor">
+                                Defensa al Deudor y Contabilidad Patrimonial
+                            </li>
+                            <li data-service-id="mercantil">
+                                Derecho Mercantil y Análisis de Mercado
+                            </li>
+                            <li data-service-id="laboral">
+                                Derecho Laboral y Cumplimiento Corporativo
+                            </li>
+                            <li data-service-id="internacional">
+                                Comercio Internacional y Propiedad Intelectual
+                            </li>
+                            <li data-service-id="inmobiliario">
+                                Derecho Inmobiliario y Desarrollo de Proyectos
+                            </li>
+                        </ul>
                     </div>
-                    <div class="service-card" data-service-id="deudor">
-                        Defensa al Deudor y Contabilidad Patrimonial
-                    </div>
-                    <div class="service-card" data-service-id="mercantil">
-                        Derecho Mercantil y Análisis de Mercado
-                    </div>
-                    <div class="service-card" data-service-id="laboral">
-                        Derecho Laboral y Cumplimiento Corporativo
-                    </div>
-                    <div class="service-card" data-service-id="internacional">
-                        Comercio Internacional y Propiedad Intelectual
-                    </div>
-                    <div class="service-card" data-service-id="inmobiliario">
-                        Derecho Inmobiliario y Desarrollo de Proyectos
-                    </div>
-                    <div class="service-card" data-service-id="fiscal">
-                        Estrategia Fiscal y Litigio Administrativo
-                    </div>
-                    <div class="service-card" data-service-id="startup">
-                        Asesoría a Startups y Venture Capital
+                    <div class="service-description-column">
+                        <p>
+                            Nuestra práctica legal está diseñada en áreas de
+                            alta especialización para ofrecer soluciones
+                            integrales y estratégicas. Cada servicio es dirigido
+                            por abogados expertos y apoyado por un análisis
+                            multidisciplinario. Explore nuestras áreas de
+                            práctica para conocer el alcance de nuestro trabajo.
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <section id="agendar-cita" class="content-section cta-section">
-                <h2>Iniciemos una Conversación</h2>
-                <p>
-                    Nuestra primera consulta sirve para diagnosticar la
-                    situación y trazar un plan de acción. Agende una cita para
-                    discutir cómo podemos ayudarle a alcanzar sus objetivos.
-                </p>
-                <a
-                    href="https://calendar.google.com/calendar/u/0/selfsched?sstoken=TU9VWVhDQlVSMFpGfGRlZmF1bHR8ZmU1YjYyZDYwY2FiY2JmMGEyY2NjY2ViYWM0Y2FkYmE"
-                    target="_blank"
-                    class="action-btn"
-                    >Agendar Videollamada</a
-                >
+            <section id="agendar-cita" class="content-section">
+                <h2>Agende una Visita</h2>
+                <div class="two-column-layout">
+                    <div class="calendar-column">
+                        <h3>Elija una fecha y hora</h3>
+                        <p>
+                            Seleccione un espacio disponible en nuestro
+                            calendario para una consulta inicial en nuestras
+                            oficinas. Este primer encuentro es fundamental para
+                            entender su caso y definir los siguientes pasos.
+                        </p>
+                        <div class="calendar-embed-placeholder">
+                            <p>
+                                Aquí se mostrará el calendario de citas de
+                                Calendly, Google Calendar, etc.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="map-column">
+                        <h3>Nuestra Ubicación</h3>
+                        <p>
+                            Av. Paseo de la Reforma 222, Colonia Juárez, Ciudad
+                            de México.
+                        </p>
+                        <div id="map"></div>
+                    </div>
+                </div>
             </section>
         </main>
 
@@ -177,8 +203,8 @@
                 <div class="footer-column">
                     <h4>Contacto</h4>
                     <p>
-                        Av. Insurgentes Sur 123, Piso 10<br />
-                        Colonia Roma, Ciudad de México<br />
+                        Av. Paseo de la Reforma 222<br />
+                        Colonia Juárez, Ciudad de México<br />
                         <a href="mailto:contacto@lhyasociados.com"
                             >contacto@lhyasociados.com</a
                         ><br />
@@ -197,7 +223,7 @@
         </footer>
 
         <div id="nosotros-modal-overlay" class="modal-overlay">
-            <div class="modal-content modal-sm">
+            <div class="modal-content modal-md">
                 <span class="close-button">&times;</span>
                 <h2>Luna, Herrera & Asociados</h2>
                 <div
@@ -210,12 +236,12 @@
         <div id="team-profile-modal-overlay" class="modal-overlay">
             <div class="modal-content modal-lg">
                 <span class="close-button">&times;</span>
-                <div id="team-profile-content" class="modal-body-grid"></div>
+                <div id="team-profile-content"></div>
             </div>
         </div>
 
-        <div id="service-modal-overlay" class="modal-overlay modal-fullscreen">
-            <div class="modal-content">
+        <div id="service-modal-overlay" class="modal-overlay">
+            <div class="modal-content modal-xl">
                 <span class="close-button">&times;</span>
                 <div
                     id="service-modal-content"
@@ -224,6 +250,11 @@
             </div>
         </div>
 
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""
+        ></script>
         <script src="script.js"></script>
     </body>
 </html>
