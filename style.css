@@ -39,7 +39,7 @@ body {
     padding: 4rem 2rem;
 }
 
-/* --- Header y Toggle Restaurado --- */
+/* --- Header y Toggle --- */
 .site-header {
     padding: 1.5rem 2rem;
     position: sticky;
@@ -294,7 +294,6 @@ body.dark-mode .moon-icon {
 .modal-lg {
     max-width: 800px;
 }
-/* Modal de Servicio ahora es más pequeño */
 .modal-xl {
     max-width: 1100px;
     max-height: 85vh;
@@ -313,7 +312,7 @@ body.dark-mode .moon-icon {
     position: fixed;
 }
 
-/* Modal "Nosotros" y Píldoras del Equipo (Estilo Píldora Vertical) */
+/* Modal "Nosotros" y Píldoras del Equipo */
 .team-pills-container {
     display: flex;
     flex-direction: column;
@@ -333,7 +332,6 @@ body.dark-mode .moon-icon {
 .team-pill:hover {
     background-color: var(--border-color);
 }
-/* IMAGEN DE PÍLDORA VERTICAL */
 .team-pill img {
     width: 60px;
     height: 90px;
@@ -416,6 +414,9 @@ body.dark-mode .moon-icon {
     margin-bottom: 1.5rem;
     text-align: left;
 }
+.service-details p {
+    text-align: justify;
+}
 .service-details ul {
     list-style: none;
     padding: 0;
@@ -429,10 +430,38 @@ body.dark-mode .moon-icon {
 }
 #service-team-container h3 {
     text-align: center;
+    margin-bottom: 2rem;
 }
-#service-team-container .team-pill {
-    border: 1px solid var(--border-color);
+
+/* --- NUEVOS ESTILOS PARA LA FILA DE COLABORADORES --- */
+.service-team-row {
+    display: flex;
     justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.team-pill-service {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 40px;
+    transition: background-color 0.2s ease;
+}
+.team-pill-service:hover {
+    background-color: var(--border-color);
+}
+.team-pill-service img {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+.team-pill-service strong {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-primary);
 }
 
 @media (max-width: 768px) {
