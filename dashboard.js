@@ -2,17 +2,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- SIMULACIÓN DE BASE DE DATOS ---
   const generadorDeCasos = () => {
     const clientes = [
-      "Empresa A",
-      "Familia Pérez",
-      "Constructora B",
-      "Juan Rodríguez",
-      "Inmobiliaria C",
-      "Sofía García",
+      "Empresa Constructora G&S",
+      "Familia Martínez Robles",
+      "Comercializadora del Sureste",
+      "Juan Carlos Rodríguez",
+      "Inmobiliaria Futuro Hogar",
+      "Sofía García de Alba",
+      "Transportes Rápidos del Norte",
     ];
-    const tipos = ["Mercantil", "Familiar", "Civil", "Administrativo", "Penal"];
+    const tipos = [
+      "Mercantil",
+      "Familiar",
+      "Civil",
+      "Administrativo",
+      "Laboral",
+    ];
     const equipos = ["unidad-1", "unidad-2", "unidad-3"];
     let casos = [];
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 25; i++) {
       const diasAtras = Math.floor(Math.random() * 90);
       const fechaIngreso = new Date();
       fechaIngreso.setDate(fechaIngreso.getDate() - diasAtras);
@@ -21,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const ultimaNoticia = new Date(fechaIngreso);
       ultimaNoticia.setDate(ultimaNoticia.getDate() + diasUltimaNoticia);
 
-      const diasTermino = Math.floor(Math.random() * 30) + 1;
+      const diasTermino = Math.floor(Math.random() * 30) - 5; // Puede ser en el pasado cercano
       const fechaTermino = new Date();
       fechaTermino.setDate(fechaTermino.getDate() + diasTermino);
 
@@ -93,13 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- FUNCIONES DE RENDERIZADO DE VISTAS ---
   function renderDirectorView() {
     mainContent.innerHTML = `
-            <div class="grid grid-cols-1 gap-6">
+            <div class="grid grid-cols-1 gap-8">
                 <div>
-                    <h2 class="text-xl mb-4">Áreas de Soporte y Estrategia</h2>
+                    <h2 class="text-2xl mb-4">Áreas de Soporte y Estrategia</h2>
                     <div id="areas-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
                 </div>
                 <div>
-                    <h2 class="text-xl mb-4">Equipos Operativos</h2>
+                    <h2 class="text-2xl mb-4">Equipos Operativos</h2>
                     <div id="equipos-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
                 </div>
             </div>`;
@@ -125,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
       .map(
         (caso) => `
             <tr>
-                <td>${caso.tipo}</td>
-                <td>${caso.cliente}</td>
-                <td>${caso.fechaIngreso}</td>
-                <td>${caso.ultimaNoticia}</td>
-                <td><button data-caso-id="${caso.id}" class="text-blue-400 hover:text-blue-300">Solicitar Asesoría</button></td>
+                <td class="p-3">${caso.tipo}</td>
+                <td class="p-3">${caso.cliente}</td>
+                <td class="p-3">${caso.fechaIngreso}</td>
+                <td class="p-3">${caso.ultimaNoticia}</td>
+                <td class="p-3"><button data-caso-id="${caso.id}" class="text-blue-400 hover:text-blue-300 font-semibold">Solicitar Asesoría</button></td>
             </tr>
         `,
       )
@@ -140,9 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="table-container">
                 <table class="w-full text-sm">
                     <thead>
-                        <tr><th>Tipo de Asunto</th><th>Cliente</th><th>Fecha de Ingreso</th><th>Última Noticia</th><th>Acción</th></tr>
+                        <tr><th class="p-3">Tipo de Asunto</th><th class="p-3">Cliente</th><th class="p-3">Fecha de Ingreso</th><th class="p-3">Última Noticia</th><th class="p-3">Acción</th></tr>
                     </thead>
-                    <tbody>${tableRows}</tbody>
+                    <tbody>${tableRows.length > 0 ? tableRows : `<tr><td colspan="5" class="text-center p-4">No hay casos asignados a este equipo.</td></tr>`}</tbody>
                 </table>
             </div>`;
   }
@@ -155,10 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let tableRows = casosOrdenados
       .map(
         (caso) => `
-             <tr class="${caso.diasAtrasoPago > 0 ? "bg-red-900/20" : ""}">
-                <td>${caso.cliente}</td>
-                <td>${caso.diasAtrasoPago > 0 ? `${caso.diasAtrasoPago} días` : "Al corriente"}</td>
-                <td><button data-cliente="${caso.cliente}" class="text-blue-400 hover:text-blue-300">Contactar</button></td>
+             <tr class="${caso.diasAtrasoPago > 30 ? "bg-red-900/40" : caso.diasAtrasoPago > 0 ? "bg-yellow-900/30" : ""}">
+                <td class="p-3">${caso.cliente}</td>
+                <td class="p-3 font-semibold ${caso.diasAtrasoPago > 0 ? "text-red-400" : "text-green-400"}">${caso.diasAtrasoPago > 0 ? `${caso.diasAtrasoPago} días de atraso` : "Al corriente"}</td>
+                <td class="p-3"><button data-cliente="${caso.cliente}" class="text-blue-400 hover:text-blue-300 font-semibold">Contactar Cliente</button></td>
             </tr>
         `,
       )
@@ -168,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <h2 class="text-2xl mb-4">Gestión de Cobranza</h2>
              <div class="table-container">
                 <table class="w-full text-sm">
-                    <thead><tr><th>Cliente</th><th>Estado de Pago</th><th>Acción</th></tr></thead>
+                    <thead><tr><th class="p-3">Cliente</th><th class="p-3">Estado de Pago</th><th class="p-3">Acción</th></tr></thead>
                     <tbody>${tableRows}</tbody>
                 </table>
             </div>`;
@@ -178,26 +185,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const casosOrdenados = [...casos].sort(
       (a, b) => new Date(a.fechaTermino) - new Date(b.fechaTermino),
     );
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
 
     let tableRows = casosOrdenados
-      .map(
-        (caso) => `
-            <tr>
-                <td>${new Date(caso.fechaTermino).toLocaleDateString()}</td>
-                <td>${caso.id}</td>
-                <td>${caso.cliente}</td>
-                <td>${caso.cumplimiento}</td>
-                <td><button data-caso-id="${caso.id}" class="text-blue-400 hover:text-blue-300">Revisar</button></td>
+      .map((caso) => {
+        const fechaTermino = new Date(caso.fechaTermino);
+        let colorFila = "";
+        if (fechaTermino < hoy) colorFila = "bg-red-900/40";
+        else if ((fechaTermino - hoy) / (1000 * 60 * 60 * 24) <= 7)
+          colorFila = "bg-yellow-900/30";
+
+        return `
+            <tr class="${colorFila}">
+                <td class="p-3 font-semibold">${fechaTermino.toLocaleDateString()}</td>
+                <td class="p-3">${caso.id}</td>
+                <td class="p-3">${caso.cliente}</td>
+                <td class="p-3">${caso.cumplimiento}</td>
+                <td class="p-3"><button data-caso-id="${caso.id}" class="text-blue-400 hover:text-blue-300 font-semibold">Revisar Cumplimiento</button></td>
             </tr>
-        `,
-      )
+        `;
+      })
       .join("");
 
     mainContent.innerHTML = `
              <h2 class="text-2xl mb-4">Supervisión de Cumplimiento</h2>
              <div class="table-container">
                 <table class="w-full text-sm">
-                    <thead><tr><th>Fecha Límite</th><th>ID Caso</th><th>Cliente</th><th>Estado</th><th>Acción</th></tr></thead>
+                    <thead><tr><th class="p-3">Fecha Límite</th><th class="p-3">ID Caso</th><th class="p-3">Cliente</th><th class="p-3">Estado</th><th class="p-3">Acción</th></tr></thead>
                     <tbody>${tableRows}</tbody>
                 </table>
             </div>`;
@@ -231,43 +246,69 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalCostosEquipo = 16000; // Simulación
         const bonoEstimado =
           casos.filter((c) => c.teamId === equipo.id).length * 250;
-        openModal(`
+        openModal(
+          `
                     <h2 class="text-2xl mb-4">${equipo.nombre}</h2>
                     <p><strong>Costo Base del Equipo:</strong> $${totalCostosEquipo.toLocaleString()}</p>
                     <p><strong>Bono Estimado por Asuntos:</strong> $${bonoEstimado.toLocaleString()}</p>
-                    <p><strong>Total Estimado:</strong> $${(totalCostosEquipo + bonoEstimado).toLocaleString()}</p>
-                `);
+                    <hr class="my-4 border-gray-600">
+                    <p class="text-lg"><strong>Costo Total Estimado:</strong> $${(totalCostosEquipo + bonoEstimado).toLocaleString()}</p>
+                `,
+          "lg",
+        );
       } else if (area && area.id === "dir") {
         const totalCostos = firma.costosFijos.reduce(
           (acc, costo) => acc + costo.monto,
           0,
         );
         const costosHTML = firma.costosFijos
-          .map((c) => `<li>${c.nombre}: $${c.monto.toLocaleString()}</li>`)
+          .map(
+            (c) =>
+              `<li class="flex justify-between"><span>${c.nombre}:</span> <span>$${c.monto.toLocaleString()}</span></li>`,
+          )
           .join("");
-        openModal(`
+        openModal(
+          `
                     <h2 class="text-2xl mb-4">Detalle de Costos Fijos</h2>
-                    <ul>${costosHTML}</ul>
+                    <ul class="space-y-2">${costosHTML}</ul>
                     <hr class="my-4 border-gray-600">
-                    <p class="text-lg"><strong>Total:</strong> $${totalCostos.toLocaleString()}</p>
-                 `);
+                    <p class="text-lg flex justify-between"><strong>Total:</strong> <strong>$${totalCostos.toLocaleString()}</strong></p>
+                 `,
+          "lg",
+        );
       } else if (area) {
         openModal(
           `<h2 class="text-2xl mb-4">Detalles de ${area.rol}</h2><p>Información detallada para esta área estará disponible próximamente.</p>`,
+          "lg",
         );
       }
     }
 
-    // Lógica para botones dentro de las tablas
     const botonAsesoria = e.target.closest("button[data-caso-id]");
     if (botonAsesoria) {
       const casoId = botonAsesoria.dataset.casoId;
-      openModal(`
-                <h2 class="text-2xl mb-4">Solicitud de Asesoría</h2>
+      openModal(
+        `
+                <h2 class="text-2xl mb-4">Revisión y Asesoría</h2>
                 <p><strong>Caso:</strong> ${casoId}</p>
-                <textarea class="w-full bg-gray-900 rounded-md p-2 mt-4" rows="4" placeholder="Describa su consulta para Dirección..."></textarea>
-                <button class="w-full bg-blue-600 hover:bg-blue-500 rounded-md p-2 mt-4">Enviar</button>
-            `);
+                <textarea class="w-full bg-gray-900 rounded-md p-2 mt-4 text-white" rows="4" placeholder="Describa su consulta o anotación para Dirección..."></textarea>
+                <button class="w-full bg-blue-600 hover:bg-blue-500 rounded-md p-2 mt-4 font-semibold">Enviar a Dirección</button>
+            `,
+        "lg",
+      );
+    }
+
+    const botonContacto = e.target.closest("button[data-cliente]");
+    if (botonContacto) {
+      const cliente = botonContacto.dataset.cliente;
+      openModal(
+        `
+                <h2 class="text-2xl mb-4">Contactar a Cliente</h2>
+                <p><strong>Cliente:</strong> ${cliente}</p>
+                <p class="mt-4">Aquí se podrían integrar opciones de contacto como enviar un correo electrónico o registrar una llamada.</p>
+            `,
+        "lg",
+      );
     }
   });
 });

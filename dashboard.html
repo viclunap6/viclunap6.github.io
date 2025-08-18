@@ -52,16 +52,10 @@
             </div>
         </div>
 
-        <div
-            id="modal-container"
-            class="fixed inset-0 z-50 flex items-center justify-center hidden"
-        >
-            <div id="modal-backdrop" class="absolute inset-0 bg-black/80"></div>
-            <div
-                id="modal-panel"
-                class="relative bg-gray-800 border border-gray-700 rounded-2xl shadow-xl w-full m-4"
-            >
-                <div id="modal-content" class="p-6"></div>
+        <div id="modal-container" class="modal-overlay">
+            <div id="modal-panel" class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="modal-content-body"></div>
             </div>
         </div>
 

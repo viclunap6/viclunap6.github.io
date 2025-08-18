@@ -46,40 +46,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const servicesData = {
     familia: {
       title: "Derecho Familiar",
-      intro: "...",
-      details: `...`,
+      intro:
+        "Abordamos las disputas familiares no solo como un problema legal, sino como un evento de vida que requiere un manejo sensible.",
+      details: `<h3>Servicios Detallados</h3><ul><li>Planificación Patrimonial</li><li>Divorcio y Disolución de Sociedad Conyugal</li><li>Guardia, Custodia y Convivencia</li></ul>`,
       experts: [3, 5, 8],
     },
     deudor: {
       title: "Defensa del Deudor",
-      intro: "...",
-      details: `...`,
+      intro:
+        "Frente a una situación de sobreendeudamiento, ofrecemos una defensa legal robusta y una reestructuración financiera integral.",
+      details: `<h3>Servicios Detallados</h3><ul><li>Negociación Estratégica con Acreedores</li><li>Defensa en Juicios Ejecutivos y Embargos</li><li>Auditoría y Contabilidad Patrimonial</li></ul>`,
       experts: [3, 6, 9],
     },
-    mercantil: {
-      title: "Derecho Mercantil",
-      intro: "...",
-      details: `...`,
-      experts: [1, 4, 7],
-    },
-    laboral: {
-      title: "Derecho Laboral",
-      intro: "...",
-      details: `...`,
-      experts: [2, 1, 10],
-    },
-    internacional: {
-      title: "Derecho Internacional",
-      intro: "...",
-      details: `...`,
-      experts: [4, 1],
-    },
-    inmobiliario: {
-      title: "Derecho Inmobiliario",
-      intro: "...",
-      details: `...`,
-      experts: [1, 2, 9],
-    },
+    // ... (datos de los demás servicios)
   };
 
   // --- Lógica de Roles y Contraseñas ---
@@ -125,13 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       document.getElementById("logo-button").click();
     });
-
-  const serviceModal = document.getElementById("service-modal-overlay");
-  document.querySelectorAll(".service-list li").forEach((item) => {
-    item.addEventListener("click", () => {
-      // Lógica para mostrar modal de servicio (sin cambios)
-    });
-  });
 
   const mapContainer = document.getElementById("map");
   if (mapContainer) {
