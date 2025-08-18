@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   // --- SIMULACIÓN DE BASE DE DATOS ---
   const generadorDeCasos = () => {
-    // ... (Esta función crea datos de ejemplo para los casos)
+    // (código para generar casos de ejemplo)
+    return []; // devuelve un array de objetos de caso
   };
   const casos = generadorDeCasos();
 
   const firma = {
-    // ... (Datos de la firma sin cambios)
+    // (datos de la firma)
   };
 
   // --- AUTENTICACIÓN Y RENDERIZADO INICIAL ---
@@ -18,46 +19,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const mainContent = document.getElementById("main-content");
   const userInfo = document.getElementById("user-info");
-  userInfo.innerHTML = `<p class="font-semibold">${userData.name}</p><p class="text-sm text-gray-400">${userData.role}</p>`;
+  userInfo.innerHTML = `<p class="font-semibold">${userData.name}</p><p class="text-sm text-gray-400 capitalize">${userData.role}</p>`;
 
-  // --- ROUTER DE VISTAS ---
-  switch (userData.role) {
-    case "director":
-      renderDirectorView();
-      break;
-    case "abogado":
-      renderAbogadoView(userData.teamId);
-      break;
-    case "admin":
-      renderAdminView();
-      break;
-    case "supervisor":
-      renderSupervisorView();
-      break;
-    default:
-      mainContent.innerHTML = `<p>Rol no reconocido.</p>`;
-  }
+  // --- ENRUTADOR DE VISTAS ---
+  const renderView = {
+    director: renderDirectorView,
+    abogado: () => renderAbogadoView(userData.teamId),
+    admin: renderAdminView,
+    supervisor: renderSupervisorView,
+  };
 
-  // --- FUNCIONES DE RENDERIZADO DE VISTAS ---
+  renderView[userData.role]();
+
+  // --- FUNCIONES DE RENDERIZADO ---
   function renderDirectorView() {
-    // ... (Crea las tarjetas de áreas y equipos como antes, pero sin mostrar costos fijos)
+    // (código para mostrar tarjetas de equipos y áreas)
   }
 
   function renderAbogadoView(teamId) {
-    // ... (Crea una tabla con los casos filtrados por teamId y la añade al mainContent)
+    // (código para mostrar la tabla de casos del abogado)
   }
 
   function renderAdminView() {
-    // ... (Crea una tabla con todos los casos, ordenados por estado de pago)
+    // (código para mostrar la tabla de casos para administración)
   }
 
   function renderSupervisorView() {
-    // ... (Crea una tabla con todos los casos, ordenados por fecha de término)
+    // (código para mostrar la tabla de casos para supervisión)
   }
 
-  // --- LÓGICA DE MODALES (Adaptada para roles) ---
-  function openModal(type, data) {
-    const modalContent = document.getElementById("modal-content");
-    // ... (El contenido del modal ahora depende del ROL del usuario y del tipo de modal)
-  }
+  // --- MANEJO DE EVENTOS Y MODALES ---
+  mainContent.addEventListener("click", (e) => {
+    // (lógica para abrir modales según el rol y el elemento clickeado)
+  });
 });
