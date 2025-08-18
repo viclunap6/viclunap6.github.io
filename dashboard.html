@@ -3,11 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Luna Castro & Asociados</title>
+        <title>Dashboard | LCHA</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="dashboard.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:wght@400;600&display=swap"
             rel="stylesheet"
         />
     </head>
@@ -17,28 +19,17 @@
                 id="sidebar-panel"
                 class="w-64 bg-gray-950/50 border-r border-gray-700/50 p-6 flex-col hidden lg:flex"
             >
-                <div class="mb-6">
-                    <h2 class="text-lg font-semibold text-white mb-4">
-                        Navegación
-                    </h2>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="#" class="sidebar-link">Inicio</a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link">Clientes</a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link">Casos</a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link">Reportes</a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link">Configuración</a>
-                        </li>
-                    </ul>
+                <div class="flex items-center mb-8">
+                    <img
+                        src="images/lhalogo.jpg"
+                        alt="Logotipo"
+                        class="h-10 w-auto rounded-md"
+                    />
+                    <span class="ml-3 font-semibold text-white text-lg"
+                        >Dashboard</span
+                    >
                 </div>
+                <nav id="sidebar-nav"></nav>
             </aside>
 
             <div class="flex-1 flex flex-col overflow-hidden">
@@ -48,98 +39,16 @@
                     <div
                         class="px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
                     >
-                        <div class="flex items-center justify-center w-full">
-                            <a href="index.html" class="flex items-center">
-                                <img
-                                    src="images/lhalogo.jpg"
-                                    alt="Logotipo"
-                                    class="h-8 w-auto rounded-md"
-                                />
-                                <span class="ml-3 font-semibold text-white"
-                                    >Luna Castro & Asociados</span
-                                >
-                            </a>
-                        </div>
+                        <h1 id="dashboard-title" class="text-xl">
+                            Luna Castro, Herrera & Asociados
+                        </h1>
+                        <div id="user-info" class="text-right"></div>
                     </div>
                 </header>
-                <main class="flex-1 overflow-y-auto">
-                    <div class="p-4 sm:p-6 lg:p-8">
-                        <div
-                            class="bg-gray-800/20 p-6 rounded-xl border border-gray-700/30 mb-8"
-                        >
-                            <h2 class="text-lg font-semibold mb-4">
-                                Áreas de Soporte y Estrategia
-                            </h2>
-                            <div
-                                id="areas-fijas-container"
-                                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-                            ></div>
-                        </div>
-                        <div
-                            class="bg-gray-800/20 p-6 rounded-xl border border-gray-700/30"
-                        >
-                            <h2 class="text-lg font-semibold mb-4">
-                                Equipos Operativos
-                            </h2>
-                            <div
-                                id="equipos-container"
-                                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
-                            ></div>
-                        </div>
-                    </div>
-                    <footer class="site-footer">
-                        <div class="footer-grid">
-                            <div class="footer-column">
-                                <h4>Luna Castro, Herrera & Asociados</h4>
-                                <p>
-                                    Firma legal dedicada a la prestación de
-                                    servicios jurídicos de alta especialización.
-                                </p>
-                            </div>
-                            <div class="footer-column">
-                                <h4>Navegación</h4>
-                                <ul>
-                                    <li>
-                                        <a href="index.html#servicios"
-                                            >Áreas de Práctica</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a href="index.html">Quiénes Somos</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="footer-column">
-                                <h4>Legal</h4>
-                                <ul>
-                                    <li>
-                                        <a href="#">Aviso de Privacidad</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Términos y Condiciones</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="footer-column">
-                                <h4>Contacto</h4>
-                                <p>
-                                    Av. Álvaro Obregón 12 quinto piso<br />
-                                    Colonia Roma Norte, Ciudad de México<br />
-                                    <a href="mailto:contacto@lcha.com"
-                                        >contacto@lcha.com</a
-                                    ><br />
-                                    T: +52 55 1234 5678
-                                </p>
-                            </div>
-                        </div>
-                        <div class="footer-bottom">
-                            <p>
-                                © 2025 Luna Castro, Herrera & Asociados, S.C.
-                                Todos los derechos reservados.
-                            </p>
-                        </div>
-                    </footer>
-                </main>
+                <main
+                    id="main-content"
+                    class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8"
+                ></main>
             </div>
         </div>
 
@@ -147,17 +56,15 @@
             id="modal-container"
             class="fixed inset-0 z-50 flex items-center justify-center hidden"
         >
-            <div
-                id="modal-backdrop"
-                class="absolute inset-0 bg-black/70 opacity-0"
-            ></div>
+            <div id="modal-backdrop" class="absolute inset-0 bg-black/80"></div>
             <div
                 id="modal-panel"
-                class="relative bg-gray-800 border border-gray-700 rounded-2xl shadow-xl w-full max-w-lg m-4 transform scale-95 opacity-0"
+                class="relative bg-gray-800 border border-gray-700 rounded-2xl shadow-xl w-full m-4"
             >
                 <div id="modal-content" class="p-6"></div>
             </div>
         </div>
+
         <script src="dashboard.js"></script>
     </body>
 </html>

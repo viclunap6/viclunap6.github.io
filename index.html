@@ -33,92 +33,27 @@
                     <a href="mailto:contacto@lcha.com">Contacto</a>
                 </nav>
                 <div class="header-actions">
-                    <a
+                    <button
                         id="dashboard-icon"
-                        href="#"
+                        class="dashboard-icon"
                         title="Acceder al Dashboard"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
+                            width="20"
+                            height="20"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="feather feather-grid"
                         >
                             <rect x="3" y="3" width="7" height="7"></rect>
                             <rect x="14" y="3" width="7" height="7"></rect>
                             <rect x="3" y="14" width="7" height="7"></rect>
                             <rect x="14" y="14" width="7" height="7"></rect>
                         </svg>
-                    </a>
-                    <button
-                        id="theme-toggle"
-                        class="theme-toggle"
-                        title="Cambiar tema"
-                    >
-                        <span class="sun-icon"
-                            ><svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <circle cx="12" cy="12" r="5"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line
-                                    x1="4.22"
-                                    y1="4.22"
-                                    x2="5.64"
-                                    y2="5.64"
-                                ></line>
-                                <line
-                                    x1="18.36"
-                                    y1="18.36"
-                                    x2="19.78"
-                                    y2="19.78"
-                                ></line>
-                                <line x1="1" y1="12" x2="3" y2="12"></line>
-                                <line x1="21" y1="12" x2="23" y2="12"></line>
-                                <line
-                                    x1="4.22"
-                                    y1="19.78"
-                                    x2="5.64"
-                                    y2="18.36"
-                                ></line>
-                                <line
-                                    x1="18.36"
-                                    y1="5.64"
-                                    x2="19.78"
-                                    y2="4.22"
-                                ></line></svg
-                        ></span>
-                        <span class="moon-icon"
-                            ><svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path
-                                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-                                ></path></svg
-                        ></span>
                     </button>
                 </div>
             </div>
@@ -183,10 +118,7 @@
                             entender su caso y definir los siguientes pasos.
                         </p>
                         <div class="calendar-embed-placeholder">
-                            <p>
-                                Aquí se mostrará el calendario de citas de
-                                Calendly, Google Calendar, etc.
-                            </p>
+                            <p>Calendario de citas (integración pendiente)</p>
                         </div>
                     </div>
                     <div class="map-column">
@@ -207,9 +139,7 @@
                     <h4>Luna Castro, Herrera & Asociados</h4>
                     <p>
                         Firma legal dedicada a la prestación de servicios
-                        jurídicos de alta especialización. Nuestro compromiso es
-                        con la excelencia, la integridad y la generación de
-                        valor para nuestros clientes.
+                        jurídicos de alta especialización.
                     </p>
                 </div>
                 <div class="footer-column">
@@ -222,7 +152,6 @@
                             >
                         </li>
                         <li><a href="#agendar-cita">Agendar Cita</a></li>
-                        <li><a href="#">Publicaciones</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -230,8 +159,6 @@
                     <ul>
                         <li><a href="#">Aviso de Privacidad</a></li>
                         <li><a href="#">Términos y Condiciones</a></li>
-                        <li><a href="#">Conflicto de Intereses</a></li>
-                        <li><a href="#">Política de Cookies</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -248,10 +175,7 @@
             <div class="footer-bottom">
                 <p>
                     © 2025 Luna Castro, Herrera & Asociados, S.C. Todos los
-                    derechos reservados. La información contenida en este sitio
-                    es solo para fines informativos y no constituye asesoría
-                    legal. La consulta de este sitio no crea una relación
-                    abogado-cliente.
+                    derechos reservados.
                 </p>
             </div>
         </footer>
@@ -260,7 +184,6 @@
             <div class="modal-content modal-lg">
                 <span class="close-button">&times;</span>
                 <h2>Quiénes Somos</h2>
-                <h3>Luna Castro, Herrera & Asociados</h3>
                 <div
                     id="team-pills-container"
                     class="team-pills-container"
@@ -279,20 +202,34 @@
             <div class="modal-content" style="max-width: 400px">
                 <span class="close-button">&times;</span>
                 <h2>Acceso al Dashboard</h2>
-                <p>Por favor, ingrese la contraseña para continuar.</p>
+                <p>Ingrese su clave de acceso.</p>
                 <form id="password-form">
                     <input
                         type="password"
+                        id="password-input"
                         required
-                        placeholder="Contraseña"
+                        placeholder="Clave"
                         style="
                             width: 100%;
                             padding: 8px;
                             margin-top: 1rem;
                             border: 1px solid var(--border-color);
                             border-radius: 4px;
+                            background-color: var(--background);
+                            color: var(--text-primary);
                         "
                     />
+                    <p
+                        id="password-error"
+                        style="
+                            color: #f87171;
+                            font-size: 0.9rem;
+                            display: none;
+                            margin-top: 0.5rem;
+                        "
+                    >
+                        Clave incorrecta.
+                    </p>
                     <button
                         type="submit"
                         style="

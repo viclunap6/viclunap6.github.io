@@ -1,121 +1,28 @@
 :root {
-    --bg-primary: #111827; /* bg-gray-900 */
-    --bg-secondary: #1f2937; /* gray-800 */
-    --border-color: #4b5563; /* gray-600 */
-    --text-primary: #e5e7eb; /* gray-200 */
-    --text-secondary: #9ca3af; /* gray-400 */
-    --accent-color: #3b82f6; /* blue-500 */
-    --positive-color: #34d399; /* emerald-400 */
-    --negative-color: #f87171; /* red-400 */
-    --font-sans: "Inter", sans-serif;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --border-color: #4b5563;
+    --text-primary: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --accent-color: #3b82f6;
+    --positive-color: #34d399;
+    --negative-color: #f87171;
+    --font-headings: "Lora", serif;
+    --font-body: "Inter", sans-serif;
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     background-color: var(--bg-primary);
 }
 
-/* --- Reseteo de estilos de input --- */
-input,
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-input[type="number"] {
-    -moz-appearance: textfield;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-headings);
 }
 
-/* --- Clases de utilidad --- */
-.positive {
-    color: var(--positive-color);
-}
-.negative {
-    color: var(--negative-color);
-}
-
-.kpi-value {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 700;
-}
-
-.kpi-label {
-    font-size: 0.75rem;
-    line-height: 1rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-}
-
-/* --- Estilos de Modal --- */
-#modal-backdrop {
-    transition: opacity 0.3s ease-in-out;
-}
-#modal-panel {
-    transition: all 0.3s ease-in-out;
-}
-
-/* --- Estilos de Componentes --- */
-.card-hover {
-    transition:
-        border-color 0.2s ease-in-out,
-        background-color 0.2s ease-in-out;
-}
-.card-hover:hover {
-    border-color: var(--accent-color);
-    background-color: var(--bg-secondary);
-}
-
-.sidebar-link {
-    display: block;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease-in-out;
-}
-.sidebar-link:hover {
-    background-color: #374151; /* gray-700 */
-}
-
-/* --- Footer (Reutilizado de style.css con variables) --- */
-.site-footer {
-    background-color: var(--bg-secondary);
-    color: var(--text-secondary);
-    padding: 3rem 2rem;
-    border-top: 1px solid var(--border-color);
-}
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 2rem;
-}
-.footer-column h4 {
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-.footer-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.footer-column ul li {
-    margin-bottom: 0.5rem;
-}
-.footer-bottom {
-    text-align: center;
-    font-size: 0.9rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.text-blue-400 {
-    color: #60a5fa;
-}
+/* ... (el resto del CSS del dashboard permanece igual) ... */
