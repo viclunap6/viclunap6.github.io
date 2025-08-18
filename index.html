@@ -31,16 +31,29 @@
                     <a href="#servicios">Servicios</a>
                     <a href="#agendar-cita">Agendar Cita</a>
                     <a href="mailto:contacto@lcha.com">Contacto</a>
-                    <a
-                        href="dashboard.html"
-                        style="
-                            background-color: #3b82f6;
-                            color: white;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                        "
-                        >Dashboard Interno</a
+                    <button
+                        id="dashboard-icon"
+                        class="theme-toggle"
+                        style="margin-left: 1.5rem; border-radius: 8px"
                     >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-user"
+                        >
+                            <path
+                                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                            ></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
                 </nav>
                 <button id="theme-toggle" class="theme-toggle">
                     <span class="sun-icon"
@@ -255,6 +268,48 @@
             <div class="modal-content modal-xl">
                 <span class="close-button">&times;</span>
                 <div id="service-modal-content"></div>
+            </div>
+        </div>
+
+        <div id="password-modal-overlay" class="modal-overlay">
+            <div class="modal-content" style="max-width: 400px">
+                <span class="close-button">&times;</span>
+                <h2>Acceso Interno</h2>
+                <form id="password-form" style="margin-top: 1.5rem">
+                    <label
+                        for="password-input"
+                        style="display: block; margin-bottom: 0.5rem"
+                        >Contraseña</label
+                    >
+                    <input
+                        type="password"
+                        id="password-input"
+                        required
+                        style="
+                            width: 100%;
+                            padding: 0.5rem;
+                            border-radius: 8px;
+                            border: 1px solid var(--border-color);
+                            background-color: var(--background);
+                            color: var(--text-primary);
+                        "
+                    />
+                    <button
+                        type="submit"
+                        style="
+                            width: 100%;
+                            padding: 0.75rem;
+                            border-radius: 8px;
+                            border: none;
+                            background-color: #3b82f6;
+                            color: white;
+                            margin-top: 1rem;
+                            cursor: pointer;
+                        "
+                    >
+                        Ingresar
+                    </button>
+                </form>
             </div>
         </div>
 

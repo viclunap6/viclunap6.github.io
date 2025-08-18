@@ -224,4 +224,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+  // --- Nueva Lógica para el Modal de Contraseña ---
+  const dashboardIcon = document.getElementById("dashboard-icon");
+  const passwordModal = document.getElementById("password-modal-overlay");
+  const passwordForm = document.getElementById("password-form");
+
+  dashboardIcon.addEventListener("click", () => {
+    openModal(passwordModal);
+  });
+
+  passwordForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Aquí puedes agregar una validación de contraseña si lo necesitas.
+    // Por ahora, cualquier valor te redirigirá.
+    window.location.href = "dashboard.html";
+  });
 });
