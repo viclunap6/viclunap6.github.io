@@ -501,6 +501,11 @@
                         calcularTodo();
                         toggleModal(false);
                     }
+
+                    const modalPanel = document.getElementById("modal-panel");
+                    if (modalPanel && e.target.closest("input")) {
+                        modalPanel.addEventListener("input", calcularTodo);
+                    }
                 });
 
                 calcularTodo();
