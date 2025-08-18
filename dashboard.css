@@ -1,105 +1,67 @@
-:root {
-    --bg-primary: #111827;
-    --bg-secondary: #1f2937;
-    --border-color: #4b5563;
-    --text-primary: #e5e7eb;
-    --text-secondary: #9ca3af;
-    --accent-color: #3b82f6;
-    --accent-hover: #60a5fa;
-    --positive-color: #34d399;
-    --negative-color: #f87171;
-    --font-headings: "Lora", serif;
-    --font-body: "Inter", sans-serif;
-}
-
 body {
-    font-family: var(--font-body);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    font-family: "Inter", sans-serif;
+    background-color: #111827; /* bg-gray-900 */
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--font-headings);
+.kpi-label {
+    font-size: 0.75rem;
+    color: #9ca3af; /* gray-400 */
+    text-transform: uppercase;
 }
-
-.card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    transition: all 0.2s ease;
+#modal-backdrop,
+#modal-panel {
+    transition: all 0.3s ease-in-out;
 }
-.card:hover {
-    border-color: var(--accent-hover);
-    transform: translateY(-2px);
+.card-hover {
+    transition:
+        border-color 0.2s ease-in-out,
+        background-color 0.2s ease-in-out;
 }
-
-.table-container {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 0.75rem;
-    overflow: hidden;
+.card-hover:hover {
+    border-color: #3b82f6; /* blue-500 */
+    background-color: #1f2937; /* gray-800 */
 }
-th {
-    background-color: rgba(0, 0, 0, 0.2);
-    font-family: var(--font-headings);
+.sidebar-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
 }
-td,
-th {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
+.sidebar-link:hover {
+    background-color: #374151; /* gray-700 */
 }
-tr:last-child td {
-    border-bottom: none;
+.site-footer {
+    background-color: #1f2937; /* gray-800 */
+    color: #9ca3af; /* gray-400 */
+    padding: 3rem 2rem;
+    border-top: 1px solid #4b5563; /* gray-600 */
 }
-tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 2rem;
 }
-
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+.footer-column h4 {
+    color: #e5e7eb; /* gray-200 */
+    margin-bottom: 1rem;
 }
-
-.modal-content {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
+.footer-column ul {
+    list-style: none;
+    padding: 0;
 }
-
-.modal-xl {
-    max-width: 1100px;
+.footer-column ul li {
+    margin-bottom: 0.5rem;
 }
-.modal-lg {
-    max-width: 800px;
+.footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+    padding-top: 2rem;
+    border-top: 1px solid #4b5563; /* gray-600 */
+    max-width: 1200px;
+    margin: 0 auto;
 }
-
-.close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: var(--text-secondary);
-}
-.close-button:hover {
-    color: var(--text-primary);
+.text-blue-400 {
+    color: #60a5fa;
 }
