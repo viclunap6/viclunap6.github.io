@@ -220,3 +220,4 @@ document.addEventListener("DOMContentLoaded", () => {
                  `, 'lg');
             } else if (area) {
                  openModal(`<h2 class="text-2xl mb-4">Detalles de ${
+}
